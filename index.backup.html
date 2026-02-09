@@ -5,145 +5,266 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
     <title>Freelance Value Optimizer | 프리랜서 시급 계산기 2026</title>
-    <meta name="description" content="2026년 기준 인플레이션과 글로벌 소득세율을 반영한 프리랜서 세후 시급 계산기. 환율 변환, 차트 대시보드 포함.">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://freelance-optimizer-clean-modern.pages.dev/">
-    <meta property="og:title" content="Freelance Value Optimizer 2026">
-    <meta property="og:description" content="내 시간의 진짜 가치는 얼마일까요? 2026년 경제 지표를 반영한 세후 시급 계산기.">
-    <meta property="og:image" content="https://freelance-optimizer-clean-modern.pages.dev/og-image.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://freelance-optimizer-clean-modern.pages.dev/">
-    <meta property="twitter:title" content="Freelance Value Optimizer 2026">
-    <meta property="twitter:description" content="전문적인 프리랜서 시급 산출 로직을 경험하세요.">
-    <meta property="twitter:image" content="https://freelance-optimizer-clean-modern.pages.dev/og-image.png">
-
+    <meta name="description" content="2026년 기준 인플레이션과 대한민국 소득세율을 반영한 프리랜서 세후 시급 계산기. 환율 변환, 공유 링크, 차트 대시보드 포함.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Growth Hacker: Analytics & SEO -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-PLACEHOLDER');
-    </script>
-    
-    <!-- Monetize Kit: AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-PLACEHOLDER" crossorigin="anonymous"></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Clean Modern (Apple Style) Theme Defaults */
-            --bg-primary: #ffffff;
-            --bg-secondary: #f5f5f7;
-            --text-primary: #1d1d1f;
-            --text-secondary: #86868b;
-            --accent: #0066cc; /* Apple Blue */
-            --glass-border: rgba(0, 0, 0, 0.1);
-            --card-bg: rgba(255, 255, 255, 0.8);
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
-            --radius-lg: 20px;
-            --radius-md: 12px;
+            --accent-h: 200;
+            --accent-s: 95%;
+            --accent-l: 62%;
+            --accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+            --accent-strong: hsl(198 100% 68%);
+            --accent-soft: hsl(200 90% 70% / 0.25);
+            --bg-deep: #070b16;
+            --bg-panel: hsl(222 48% 14% / 0.82);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-dim: #a2b2c6;
+            --text-main: #f8fafc;
+            --input-bg: hsl(220 40% 12% / 0.85);
+            --card-bg: hsl(222 47% 11% / 0.6);
+            --accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+            --shadow-color: rgba(0, 0, 0, 0.6);
         }
 
+        [data-theme="light"] {
+            --bg-deep: #f8fafc;
+            --bg-panel: rgba(255, 255, 255, 0.82);
+            --glass-border: rgba(56, 189, 248, 0.25);
+            --text-dim: #64748b;
+            --text-main: #1e293b;
+            --input-bg: #ffffff;
+            --card-bg: #ffffff;
+            --accent: #2563eb;
+            --shadow-color: rgba(56, 189, 248, 0.08);
+        }
+
+        /* Full Theme Specificity for Dark Mode */
         [data-theme="dark"] {
-            /* Clean Modern Dark */
-            --bg-primary: #000000;
-            --bg-secondary: #1c1c1e;
-            --text-primary: #f5f5f7;
-            --text-secondary: #86868b;
-            --accent: #2997ff;
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --card-bg: rgba(28, 28, 30, 0.8);
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --accent-h: 200;
+            --accent-s: 95%;
+            --accent-l: 62%;
+            --accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+            --accent-strong: hsl(198 100% 68%);
+            --accent-soft: hsl(200 90% 70% / 0.25);
+            --bg-deep: #070b16;
+            --bg-panel: hsl(222 48% 14% / 0.82);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-dim: #a2b2c6;
+            --text-main: #f8fafc;
+            --input-bg: hsl(220 40% 12% / 0.85);
+            --card-bg: hsl(222 47% 11% / 0.6);
+            --shadow-color: rgba(0, 0, 0, 0.6);
         }
 
-        /* UI Theme Architect: Clean Modern Overrides */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-            transition: background-color 0.4s ease, color 0.3s ease;
+        /* Midnight Nebula Dark Mode Enhancements */
+        [data-theme="dark"] body {
+            background-image:
+                radial-gradient(circle at 8% 20%, hsl(196 100% 60% / 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 85% 15%, hsl(270 90% 70% / 0.18) 0%, transparent 38%),
+                radial-gradient(circle at 50% 80%, hsl(220 90% 55% / 0.16) 0%, transparent 40%),
+                linear-gradient(180deg, #060910 0%, #0c1224 55%, #0a0f1d 100%);
         }
 
-        .glass-panel {
-            background: var(--card-bg);
+        [data-theme="dark"] .glass-panel {
+            background: var(--bg-panel);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             border: 1px solid var(--glass-border);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: var(--shadow-sm);
-            border-radius: var(--radius-lg);
+            box-shadow: 0 18px 45px -18px var(--shadow-color), 0 0 28px hsl(200 100% 60% / 0.08);
         }
 
-        .input-field {
-            background: var(--bg-primary);
+        [data-theme="dark"] .neon-text {
+            text-shadow:
+                0 0 12px hsl(var(--accent-h) var(--accent-s) 60% / 0.45),
+                0 0 28px hsl(var(--accent-h) var(--accent-s) 60% / 0.25);
+        }
+
+        [data-theme="dark"] .chip {
+            background: hsl(220 35% 16% / 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+        }
+
+        [data-theme="dark"] .btn-primary {
+            background: linear-gradient(135deg, hsl(198 100% 60%), hsl(220 90% 58%));
+            box-shadow: 0 12px 30px -6px hsl(200 100% 60% / 0.35);
+        }
+
+        [data-theme="dark"] .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px -6px hsl(200 100% 60% / 0.55);
+        }
+
+        /* Premium Winter Aero Refinements */
+        [data-theme="light"] body {
+            background-image: 
+                radial-gradient(circle at 5% 10%, rgba(37, 99, 235, 0.04) 0%, transparent 35%),
+                radial-gradient(circle at 95% 90%, rgba(14, 165, 233, 0.04) 0%, transparent 35%),
+                linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        [data-theme="light"] .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            color: var(--text-primary);
-            border-radius: var(--radius-md);
-            transition: all 0.2s ease;
+            box-shadow: 0 15px 35px -5px var(--shadow-color), 0 5px 15px -5px var(--shadow-color);
+        }
+
+        [data-theme="light"] .text-slate-100,
+        [data-theme="light"] .text-slate-200,
+        [data-theme="light"] .text-slate-300,
+        [data-theme="light"] .text-slate-400,
+        [data-theme="light"] .text-slate-500 {
+            color: #475569 !important;
+            opacity: 1 !important;
         }
         
-        .input-field:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
-            outline: none;
+        [data-theme="light"] .chip {
+            background: #ffffff !important;
+            color: #1d4ed8 !important;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.05);
         }
 
+        [data-theme="light"] .metric-card {
+            background: #ffffff !important;
+            border: 1px solid #eef2f7 !important;
+        }
+
+        [data-theme="light"] .input-field {
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0;
+            color: #1e293b;
+        }
+
+        [data-theme="light"] .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+            color: #ffffff !important;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+
+        [data-theme="light"] header h1 span {
+            background: linear-gradient(135deg, #1e40af, #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Dark Mode Explicit overrides */
+        [data-theme="dark"] .text-slate-200,
+        [data-theme="dark"] .text-slate-300 {
+            color: #f8fafc !important;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+        }
+
+        .font-display { font-family: 'Space Grotesk', sans-serif; }
+        
+        .glass-panel {
+            background: var(--bg-panel);
+            border: 1px solid var(--glass-border);
+            transition: border-color 0.3s ease;
+        }
+        .glass-panel:hover {
+            border-color: var(--accent);
+        }
+        .input-field {
+            background: var(--input-bg);
+            border: 2px solid var(--glass-border);
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
         .btn-primary {
             background: var(--accent);
-            color: white;
-            border-radius: var(--radius-md);
-            font-weight: 600;
-            box-shadow: var(--shadow-md);
-            transition: transform 0.1s ease, box-shadow 0.2s ease;
+            color: #fff;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            transition: all 0.3s ease;
         }
-        
-        .btn-primary:active {
-            transform: scale(0.98);
+        .btn-primary:hover {
+            filter: brightness(1.1);
         }
-
-        /* Legacy Overrides Clean-up */
-        .neon-text { text-shadow: none; }
-        .chip { background: var(--bg-primary); border-color: var(--glass-border); }
-        .metric-card { background: var(--bg-primary); border: 1px solid var(--glass-border); border-radius: var(--radius-md); }
-
+        .chip {
+            background: hsl(220 35% 16% / 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+        }
+        .metric-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+        }
+        .toggle-track {
+            background: rgba(148, 163, 184, 0.2);
+        }
+        .toggle-knob {
+            background: white;
+        }
+        .toggle-checkbox:checked + .toggle-track {
+            background: var(--accent);
+        }
+        .toggle-checkbox:checked + .toggle-track .toggle-knob {
+            transform: translateX(18px);
+        }
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-result {
+            animation: countUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .fade-in {
+            animation: countUp 0.5s ease forwards;
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease forwards;
+        }
     </style>
 </head>
 <body class="p-4 md:p-8 flex flex-col items-center justify-center min-h-screen">
 
     <div class="max-w-6xl w-full">
         <div class="fixed top-6 right-6 z-50 flex gap-2">
+            <!-- AI Chatbot Button -->
+            <button id="ai-chatbot-btn" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:scale-110 transition-transform text-xl animate-pulse" title="AI Hourly Rate Advisor" onclick="toggleAIChatbot()">🤖</button>
             <!-- Country/Tax Region Selector -->
             <div class="relative group">
                 <button id="country-btn" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:scale-110 transition-transform text-xl" title="Tax Region">🏛️</button>
                 <div id="country-menu" class="hidden absolute right-0 mt-2 glass-panel rounded-lg p-2 min-w-[160px] shadow-xl">
-                    <button onclick="setCountry('KR')" class="w-full px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-white/10 rounded transition text-sm">🇰🇷 South Korea</button>
-                    <button onclick="setCountry('US')" class="w-full px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-white/10 rounded transition text-sm">🇺🇸 United States</button>
-                    <button onclick="setCountry('JP')" class="w-full px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-white/10 rounded transition text-sm">🇯🇵 Japan</button>
-                    <button onclick="setCountry('CN')" class="w-full px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-white/10 rounded transition text-sm">🇨🇳 China</button>
-                    <button onclick="setCountry('TW')" class="w-full px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-white/10 rounded transition text-sm">🇹🇼 Taiwan</button>
-                    <button onclick="setCountry('UK')" class="w-full px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-white/10 rounded transition text-sm">🇬🇧 United Kingdom</button>
-                    <button onclick="setCountry('CA')" class="w-full px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-white/10 rounded transition text-sm">🇨🇦 Canada</button>
-                    <button onclick="setCountry('DE')" class="w-full px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-white/10 rounded transition text-sm">🇩🇪 Germany</button>
+                    <button onclick="setCountry('KR')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇰🇷 South Korea</button>
+                    <button onclick="setCountry('US')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇺🇸 United States</button>
+                    <button onclick="setCountry('JP')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇯🇵 Japan</button>
+                    <button onclick="setCountry('CN')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇨🇳 China</button>
+                    <button onclick="setCountry('TW')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇹🇼 Taiwan</button>
                 </div>
             </div>
             <!-- Language Switcher -->
             <div class="relative group">
                 <button id="lang-btn" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:scale-110 transition-transform text-xl" title="Language">🌐</button>
                 <div id="lang-menu" class="hidden absolute right-0 mt-2 glass-panel rounded-lg p-2 min-w-[120px] shadow-xl">
-                    <button onclick="setLanguage('ko')" class="w-full px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-white/10 rounded transition text-sm">🇰🇷 한국어</button>
-                    <button onclick="setLanguage('en')" class="w-full px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-white/10 rounded transition text-sm">🇺🇸 English</button>
-                    <button onclick="setLanguage('zh-CN')" class="w-full px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-white/10 rounded transition text-sm">🇨🇳 简体中文</button>
-                    <button onclick="setLanguage('zh-TW')" class="w-full px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-white/10 rounded transition text-sm">🇹🇼 繁體中文</button>
-                    <button onclick="setLanguage('ja')" class="w-full px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-white/10 rounded transition text-sm">🇯🇵 日本語</button>
+                    <button onclick="setLanguage('ko')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇰🇷 한국어</button>
+                    <button onclick="setLanguage('en')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇺🇸 English</button>
+                    <button onclick="setLanguage('zh-CN')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇨🇳 简体中文</button>
+                    <button onclick="setLanguage('zh-TW')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇹🇼 繁體中文</button>
+                    <button onclick="setLanguage('ja')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇯🇵 日本語</button>
                 </div>
             </div>
             <!-- Theme Switcher -->
@@ -154,11 +275,11 @@
 
         <header class="text-center mb-10">
             <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-3 font-display">
-                <span class="neon-text bg-clip-text text-transparent bg-gradient-to-r from-sky-600 via-sky-500 to-indigo-600 dark:from-sky-200 dark:via-sky-300 dark:to-indigo-300">
+                <span class="neon-text bg-clip-text text-transparent bg-gradient-to-r from-sky-200 via-sky-300 to-indigo-300">
                     Freelance Value Optimizer
                 </span>
             </h1>
-            <p class="text-slate-600 dark:text-slate-300 text-sm md:text-base font-light">
+            <p class="text-slate-300 text-sm md:text-base font-light">
                 대한민국 세율을 반영한 <strong>세후 시급</strong>을 산출하고, 환율/차트까지 한 번에 확인하세요.
             </p>
         </header>
@@ -166,7 +287,7 @@
         <main class="grid lg:grid-cols-[420px_1fr] gap-6">
             <section class="glass-panel rounded-3xl p-6 md:p-8 relative overflow-hidden">
                 <div class="flex items-center justify-between mb-6">
-                    <button id="mode-toggle" class="text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-300 transition-colors flex items-center gap-2">
+                    <button id="mode-toggle" class="text-xs font-bold text-slate-400 hover:text-sky-300 transition-colors flex items-center gap-2">
                         <span id="mode-label">⚡ 간편 모드 (Simple)</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     </button>
@@ -184,49 +305,47 @@
 
                 <div class="space-y-6 transition-all duration-300" id="input-container">
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">현재 연 매출/연봉 (세전)</label>
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">현재 연 매출/연봉 (세전)</label>
                         <div class="relative">
                             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">₩</span>
-                            <input type="text" id="salary" class="input-field w-full p-4 pl-10 rounded-xl text-xl font-black" placeholder="예: 50,000,000" onkeyup="formatCurrency(this)">
+                            <input type="text" id="salary" class="input-field w-full p-4 pl-10 rounded-xl text-xl font-black bg-black" placeholder="예: 50,000,000" onkeyup="formatCurrency(this)">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">KRW/USD 환율</label>
-                            <input type="number" id="fx-rate" class="input-field w-full p-3 rounded-lg text-sm" value="1320" min="1" step="0.1">
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">KRW/USD 환율</label>
+                            <input type="number" id="fx-rate" class="input-field w-full p-3 rounded-lg text-sm bg-black" value="1320" min="1" step="0.1">
                         </div>
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">연간 작업 시간</label>
-                            <input type="number" id="hours" class="input-field w-full p-3 rounded-lg text-sm" value="1600" placeholder="1600">
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">연간 작업 시간</label>
+                            <input type="number" id="hours" class="input-field w-full p-3 rounded-lg text-sm bg-black" value="1600" placeholder="1600">
                         </div>
                     </div>
 
-                    <div id="detail-fields" class="hidden space-y-6 pt-4 border-t border-slate-200 dark:border-slate-600/60">
+                    <div id="detail-fields" class="hidden space-y-6 pt-4 border-t border-slate-600/60">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">월 목표 저축액</label>
-                                <input type="text" id="savings" class="input-field w-full p-3 rounded-lg text-sm" placeholder="0" onkeyup="formatCurrency(this)">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">월 목표 저축액</label>
+                                <input type="text" id="savings" class="input-field w-full p-3 rounded-lg text-sm bg-black" placeholder="0" onkeyup="formatCurrency(this)">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">연간 필요경비</label>
-                                <input type="text" id="expenses" class="input-field w-full p-3 rounded-lg text-sm" placeholder="0" onkeyup="formatCurrency(this)">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">연간 필요경비</label>
+                                <input type="text" id="expenses" class="input-field w-full p-3 rounded-lg text-sm bg-black" placeholder="0" onkeyup="formatCurrency(this)">
                             </div>
                         </div>
                         <div>
-                            <label class="flex justify-between text-[10px] font-bold text-slate-500 dark:text-slate-300 uppercase mb-2">
+                            <label class="flex justify-between text-[10px] font-bold text-slate-300 uppercase mb-2">
                                 <span>인플레이션 전망 (2026 OECD)</span>
-                                <span class="text-sky-500 dark:text-sky-300" id="inflation-label">4.5%</span>
+                                <span class="text-sky-300" id="inflation-label">4.5%</span>
                             </label>
-                            <input type="range" id="inflation" min="0" max="10" step="0.1" value="4.5" class="w-full h-1 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-sky-400">
+                            <input type="range" id="inflation" min="0" max="10" step="0.1" value="4.5" class="w-full h-1 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-sky-400">
                         </div>
                     </div>
 
                     <button onclick="calculate()" class="btn-primary w-full p-5 rounded-xl font-bold text-lg text-white shadow-lg mt-2">
                         내 가치 계산하기 (Calculate)
                     </button>
-
-
 
                     <p class="text-[10px] text-slate-500 leading-relaxed">
                         입력은 KRW 기준입니다. 환율 토글은 결과 표시 통화만 변경합니다.
@@ -236,19 +355,19 @@
                 <div id="result-view" class="hidden text-center py-2">
                     <div class="mb-6">
                         <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Recommended Hourly Rate</p>
-                        <h2 class="text-6xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter" id="result-rate">0원</h2>
-                        <p class="text-lg text-emerald-600 dark:text-emerald-500 mt-2 font-black" id="result-annual">세전 목표 매출: 0원</p>
+                        <h2 class="text-6xl md:text-7xl font-black text-main tracking-tighter" id="result-rate">0원</h2>
+                        <p class="text-lg text-emerald-500 mt-2 font-black" id="result-annual">세전 목표 매출: 0원</p>
                         <p class="text-sm text-slate-500 mt-1 font-bold" id="result-net">세후 실수령: 0원</p>
                     </div>
 
                     <div class="grid grid-cols-3 gap-3 mb-6">
-                        <button onclick="saveImage()" class="p-3 rounded-lg bg-white border border-slate-200 dark:border-none dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold transition-colors shadow-sm dark:shadow-none">
+                        <button onclick="saveImage()" class="p-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-colors">
                             📸 이미지 저장
                         </button>
-                        <button onclick="copyLink()" class="p-3 rounded-lg bg-white border border-slate-200 dark:border-none dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold transition-colors shadow-sm dark:shadow-none">
+                        <button onclick="copyLink()" class="p-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-colors">
                             🔗 링크 복사
                         </button>
-                        <button onclick="reset()" class="p-3 rounded-lg bg-white border border-slate-200 dark:border-none dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold transition-colors shadow-sm dark:shadow-none">
+                        <button onclick="reset()" class="p-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-colors">
                             🔄 다시 계산
                         </button>
                     </div>
@@ -301,15 +420,15 @@
                         </div>
                         <div class="space-y-3 text-sm">
                             <div class="flex items-center justify-between">
-                                <span class="text-slate-600 dark:text-slate-300">세금</span>
+                                <span class="text-slate-300">세금</span>
                                 <span class="font-semibold" id="ratio-tax">0%</span>
                             </div>
                             <div class="flex items-center justify-between">
-                                <span class="text-slate-600 dark:text-slate-300">저축</span>
+                                <span class="text-slate-300">저축</span>
                                 <span class="font-semibold" id="ratio-savings">0%</span>
                             </div>
                             <div class="flex items-center justify-between">
-                                <span class="text-slate-600 dark:text-slate-300">가처분 소득</span>
+                                <span class="text-slate-300">가처분 소득</span>
                                 <span class="font-semibold" id="ratio-spendable">0%</span>
                             </div>
                             <div class="text-[11px] text-slate-500">
@@ -323,32 +442,32 @@
 
         <!-- AI Chatbot Modal -->
         <div id="ai-chatbot-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-            <div class="glass-panel border border-slate-200 dark:border-white/10 rounded-3xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden shadow-2xl">
+            <div class="glass-panel rounded-3xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden">
                 <!-- Header -->
-                <div class="flex items-center justify-between p-6 border-b border-slate-200 dark:border-white/10">
+                <div class="flex items-center justify-between p-6 border-b border-white/10">
                     <div class="flex items-center gap-3">
                         <span class="text-3xl">🤖</span>
                         <div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">AI Hourly Rate Advisor</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Powered by Google Gemini</p>
+                            <h3 class="text-xl font-bold">AI Hourly Rate Advisor</h3>
+                            <p class="text-xs text-slate-400">Powered by Google Gemini</p>
                         </div>
                     </div>
-                    <button onclick="toggleAIChatbot()" class="w-10 h-10 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors flex items-center justify-center text-slate-500">
+                    <button onclick="toggleAIChatbot()" class="w-10 h-10 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center">
                         ✕
                     </button>
                 </div>
 
                 <!-- Chat Messages -->
-                <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50/50 dark:bg-transparent">
+                <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4">
                     <!-- Welcome Message -->
                     <div class="flex gap-3">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center flex-shrink-0 text-white shadow-lg">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center flex-shrink-0">
                             🤖
                         </div>
-                        <div class="glass-panel bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-white/10 rounded-2xl rounded-tl-none p-4 flex-1 shadow-sm">
-                            <p class="text-sm text-slate-800 dark:text-slate-200">안녕하세요! AI 시급 추천 어드바이저입니다. 👋</p>
-                            <p class="text-sm mt-2 text-slate-800 dark:text-slate-200">업종, 경력, 지역 등을 알려주시면 적정 시급을 추천해드립니다!</p>
-                            <div class="mt-3 text-xs text-slate-500 dark:text-slate-400">
+                        <div class="glass-panel rounded-2xl rounded-tl-none p-4 flex-1">
+                            <p class="text-sm">안녕하세요! AI 시급 추천 어드바이저입니다. 👋</p>
+                            <p class="text-sm mt-2">업종, 경력, 지역 등을 알려주시면 적정 시급을 추천해드립니다!</p>
+                            <div class="mt-3 text-xs text-slate-400">
                                 예시: "웹 개발자, 경력 3년, 서울"
                             </div>
                         </div>
@@ -356,49 +475,30 @@
                 </div>
 
                 <!-- Input Area -->
-                <div class="p-6 border-t border-slate-200 dark:border-white/10">
+                <div class="p-6 border-t border-white/10">
                     <div class="flex gap-2">
                         <input 
                             type="text" 
                             id="chat-input" 
                             placeholder="업종, 경력, 지역을 입력하세요..." 
-                            class="flex-1 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400/50 transition-all text-slate-800 dark:text-white"
+                            class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400/50 transition-all"
                             onkeypress="if(event.key==='Enter') sendMessage()"
                         >
                         <button 
                             onclick="sendMessage()" 
-                            class="px-6 py-3 bg-gradient-to-r from-sky-400 to-indigo-500 rounded-xl font-semibold text-white hover:scale-105 transition-transform shadow-lg"
+                            class="px-6 py-3 bg-gradient-to-r from-sky-400 to-indigo-500 rounded-xl font-semibold hover:scale-105 transition-transform"
                         >
                             보내기
                         </button>
                     </div>
-                    <div class="mt-2 text-xs text-slate-500 dark:text-slate-400 text-center">
+                    <div class="mt-2 text-xs text-slate-500 text-center">
                         * AI 추천은 참고용입니다. 실제 시급과 다를 수 있습니다.
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Floating AI Chatbot Button -->
-        <button id="ai-chatbot-btn" onclick="toggleAIChatbot()" class="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-br from-sky-400 to-indigo-600 rounded-full shadow-2xl flex items-center justify-center text-3xl hover:scale-110 active:scale-95 transition-all z-[90] group">
-            🤖
-            <span class="absolute right-full mr-4 px-3 py-1 bg-slate-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                AI 시급 상담소
-            </span>
-        </button>
-
         <footer class="mt-12 text-center opacity-70">
-            <!-- Buy Me a Coffee Button (Temporarily disabled for AdSense Approval)
-            <div class="mb-6 flex justify-center">
-                <a href="https://www.buymeacoffee.com/Hwani" target="_blank" rel="noopener noreferrer" 
-                   class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
-                   style="background: linear-gradient(135deg, #FFDD00 0%, #FBB034 100%); color: #000;">
-                    <span class="text-xl">☕</span>
-                    <span>Buy Me a Coffee</span>
-                </a>
-            </div>
-            -->
-            
             <div class="flex justify-center gap-4 mb-4 text-[10px] text-slate-400">
                 <a href="about.html" class="hover:text-sky-400 transition-colors">서비스 소개</a>
                 <span>•</span>
@@ -882,51 +982,14 @@
             'TW': {
                 name: 'Taiwan',
                 currency: 'TWD',
-                withholdingRate: 0,
-                localTaxRate: 0,
-                brackets: [
+                withholdingRate: 0, // Varies by profession
+                localTaxRate: 0, // No separate local tax
+                brackets: [ // 2026 Individual income tax
                     { lower: 0, upper: 560000, rate: 0.05, base: 0 },
                     { lower: 560000, upper: 1260000, rate: 0.12, base: 28000 },
                     { lower: 1260000, upper: 2520000, rate: 0.20, base: 112000 },
                     { lower: 2520000, upper: 4720000, rate: 0.30, base: 364000 },
                     { lower: 4720000, upper: Infinity, rate: 0.40, base: 1024000 }
-                ]
-            },
-            'UK': {
-                name: 'United Kingdom',
-                currency: 'GBP',
-                withholdingRate: 0,
-                localTaxRate: 0,
-                brackets: [
-                    { lower: 0, upper: 12570, rate: 0, base: 0 },
-                    { lower: 12570, upper: 50270, rate: 0.20, base: 0 },
-                    { lower: 50270, upper: 125140, rate: 0.40, base: 7540 },
-                    { lower: 125140, upper: Infinity, rate: 0.45, base: 37488 }
-                ]
-            },
-            'CA': {
-                name: 'Canada',
-                currency: 'CAD',
-                withholdingRate: 0,
-                localTaxRate: 0.1, // Provincial average simplification
-                brackets: [
-                    { lower: 0, upper: 55867, rate: 0.15, base: 0 },
-                    { lower: 55867, upper: 111733, rate: 0.205, base: 8380 },
-                    { lower: 111733, upper: 173205, rate: 0.26, base: 19833 },
-                    { lower: 173205, upper: 246752, rate: 0.29, base: 35815 },
-                    { lower: 246752, upper: Infinity, rate: 0.33, base: 57144 }
-                ]
-            },
-            'DE': {
-                name: 'Germany',
-                currency: 'EUR',
-                withholdingRate: 0,
-                localTaxRate: 0.055, // Solidarity surcharge
-                brackets: [
-                    { lower: 0, upper: 11604, rate: 0, base: 0 },
-                    { lower: 11604, upper: 66760, rate: 0.25, base: 0 }, // Simplified linear progress
-                    { lower: 66760, upper: 277825, rate: 0.42, base: 13789 },
-                    { lower: 277825, upper: Infinity, rate: 0.45, base: 102436 }
                 ]
             }
         };
@@ -969,26 +1032,17 @@
                 ? salary * (1 + inflation / 100)
                 : (salary + annualSavings) * (1 + inflation / 100);
 
-            const taxableIncomeKRW = Math.max(0, adjustedAnnualTarget - expenses);
+            const taxableIncome = Math.max(0, adjustedAnnualTarget - expenses);
             const system = taxSystems[currentCountry];
             
-            // FX Conversion for accurate tax bracket comparison
-            const fx = (currentCountry === 'KR') ? 1 : (state.fxRate || 1320);
-            const taxableIncomeLocal = taxableIncomeKRW / fx;
+            // Calculate income tax based on selected country
+            const nationalTax = calcIncomeTax(taxableIncome);
+            const localTax = nationalTax * system.localTaxRate;
             
-            // Calculate income tax in local currency
-            const nationalTaxLocal = calcIncomeTax(taxableIncomeLocal);
-            const localTaxLocal = nationalTaxLocal * system.localTaxRate;
-            
-            // Add self-employment tax for US (calculated in local USD then back to KRW)
-            const selfEmploymentTaxLocal = (currentCountry === 'US') 
-                ? (adjustedAnnualTarget / fx) * (system.selfEmploymentTax || 0) 
+            // Add self-employment tax for US
+            const selfEmploymentTax = (currentCountry === 'US') 
+                ? adjustedAnnualTarget * (system.selfEmploymentTax || 0) 
                 : 0;
-            
-            // Convert all taxes back to KRW for internal consistency
-            const nationalTax = nationalTaxLocal * fx;
-            const localTax = localTaxLocal * fx;
-            const selfEmploymentTax = selfEmploymentTaxLocal * fx;
             
             const totalTax = nationalTax + localTax + selfEmploymentTax;
             const withheld = adjustedAnnualTarget * system.withholdingRate;
@@ -1234,11 +1288,7 @@
                 });
                 
                 if (!response.ok) {
-                    let errorMsg = `Server returned ${response.status}`;
-                    if (response.status === 501) {
-                        errorMsg = "로컬 서버(python -m http.server)는 API 기능을 지원하지 않습니다. 배포 후 테스트하거나 'npx wrangler pages dev'를 사용하세요.";
-                    }
-                    throw new Error(errorMsg);
+                    throw new Error(`Server returned ${response.status}`);
                 }
                 
                 const data = await response.json();
@@ -1249,10 +1299,10 @@
                 if (data.candidates && data.candidates[0]) {
                     const aiResponse = data.candidates[0].content.parts[0].text;
                     addMessageToChat(aiResponse, 'ai');
-                } else if (data.error || data.message) {
-                     // Updated error extraction for our robust API
-                     const errorMessage = data.message || data.error?.message || JSON.stringify(data.error);
-                     addMessageToChat(`❌ 오류가 발생했습니다.\n\n${errorMessage}`, 'ai');
+                } else if (data.error) {
+                     // Google often returns an error object { code, message, ... }
+                     const errorMessage = data.error.message || JSON.stringify(data.error);
+                     addMessageToChat(`죄송합니다. 서버 응답 오류입니다:\n${errorMessage}`, 'ai');
                 } else {
                     addMessageToChat('죄송합니다. 응답을 생성할 수 없습니다. 다시 시도해주세요.', 'ai');
                 }

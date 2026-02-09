@@ -29,11 +29,11 @@ export async function onRequest(context) {
   }
 
   // 3. API Key Validation
-  const apiKey = context?.env?.GEMINI_API_KEY;
+  const apiKey = context?.env?.GEMINI_API_KEY || context?.env?.GOOGLE_API_KEY;
   if (!apiKey) {
     return new Response(JSON.stringify({ 
       error: "서버 설정 오류: API Key가 누락되었습니다. Cloudflare 관리자에게 문의하세요.",
-      details: "GEMINI_API_KEY is not set in environment variables."
+      details: "GEMINI_API_KEY or GOOGLE_API_KEY is not set in environment variables."
     }), { 
       status: 500,
       headers: { 'Content-Type': 'application/json' }

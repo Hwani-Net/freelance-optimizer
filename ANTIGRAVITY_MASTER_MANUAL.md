@@ -152,12 +152,32 @@
    - Justification: 90점 이상인 이유 또는 감점 사유
    
 3. **Next Model Recommendation (다음 모델 추천)**
-   - Tier: SS(Oracle) | S(Deep) | A(Pro) | B(Flash)
-   - Model: 구체적 모델명 (예: Claude Opus 4.5, Gemini 3 Pro)
-   - Mode: **Fast** | **Planning**
-     *   **Planning**: 심층 조사(Deep research), 복잡한 작업(Complex tasks), 협업 작업 시 제안
-     *   **Fast**: 단순 작업(Simple tasks), 직접 실행 및 빠른 완료가 가능할 때 제안
-   - Reason: 객관적 공학 근거
+   - Tier: SS(Oracle) | S(Deep) | A(Standard) | B(Flash)
+   - Model: 아래 **사용 가능 모델 목록**에서 선택
+     *   **Claude Opus 4.5 (Thinking)** - 극도로 복잡한 알고리즘/아키텍처 설계, 다단계 추론
+     *   **Claude Sonnet 4.5 (Thinking)** - 복잡한 기획 및 구현, 전략적 의사결정
+     *   **Claude Sonnet 4.5** - 범용 개발 및 문서 작업, 균형잡힌 성능
+     *   **Gemini 3 Flash** - 빠른 코드 생성, 단순 반복 작업
+     *   **Gemini 3 Pro (Low)** - 중간 복잡도 작업, 비용 효율적
+     *   **Gemini 3 Pro (High)** - 고품질 코드 생성, 복잡한 로직 구현
+   - Mode: **Planning** | **Fast**
+     *   **Planning Mode** (체계적 기획 모드):
+         - **사용 시기**: 복잡한 다단계 프로젝트, 심층 조사, 시스템 전반에 걸친 변경
+         - **특징**: 
+           - 실행 전 상세한 작업 분해 및 구현 계획 수립
+           - 명확화 질문을 통한 컨텍스트 수집
+           - 관련 파일 자동 조사 및 분석
+           - 사용자 검토 및 승인 후 실행 (Measure twice, cut once)
+           - `task.md`, `implementation_plan.md` 등 Artifact 생성
+         - **장점**: 실수 방지, 이해관계자 합의, 장기적 시간 절약
+     *   **Fast Mode** (즉시 실행 모드):
+         - **사용 시기**: 명확하고 단순한 작업, 빠른 반복이 필요한 경우
+         - **특징**:
+           - 즉시 실행 (계획 수립 없이)
+           - 실시간 파일 읽기/쓰기 및 터미널 명령 실행
+           - 빠른 피드백 루프
+         - **장점**: 신속한 결과, 간단한 작업에 최적화
+   - Reason: 객관적 공학 근거 (작업 복잡도, 필요 역량, 비용 효율성)
    - Next Task: 구체적 지시 사항
 
 ### 📝 예시 (자유 형식)
@@ -177,10 +197,10 @@
 - **Justification**: Pydantic 강제로 파싱 오류 제로화. 단, 레거시 호환성을 위한 Fallback 추가로 복잡도 증가
 
 ### Next Model Recommendation
-- **Tier**: A (Pro)
+- **Tier**: A (Standard)
 - **Model**: Claude Sonnet 4.5
 - **Mode**: Planning
-- **Reason**: 보고 형식 개선 같은 문서 리팩토링은 Sonnet의 강점
+- **Reason**: 문서 리팩토링은 체계적 검토가 필요하며, Sonnet의 문서 작업 강점 활용
 - **Next Task**: ANTIGRAVITY_MASTER_MANUAL.md 업데이트 승인 대기
 ```
 
