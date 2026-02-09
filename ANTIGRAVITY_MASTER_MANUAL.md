@@ -119,6 +119,28 @@
   - **Discovery**: 환경 변수 `ANTIGRAVITY_CORE_PATH` 또는 부모 폴더에서 `_ANTIGRAVITY_CORE`를 검색하라.
   - **Auto-Sync**: 작업 시작 전 Core의 파일을 Fetch하라.
 
+## ⚔️ Expert Assembly Protocol (전문가 긴급소집 프로토콜)
+**Ultimate Weapon - Tier SSS**
+
+난관 돌파를 위한 최종 무기. 복잡도 8점 이상, 3회 이상 재발, 또는 대표님의 명시적 요청 시 자동 발동.
+
+### 작동 원리
+1. **문제 감지**: 복잡도, 재발률, 기술 충돌 등을 자동 분석
+2. **전문가 소집**: 문제 해결에 필요한 최적의 AI 모델을 전문가로 할당
+   - 예: Security Audit → Claude Opus 4.5 (Thinking), UI/UX → Gemini 3 Pro (High)
+3. **회의 진행**: 전문가들이 각자의 관점에서 분석 후 토론하여 최종 합의안 도출
+4. **실행 및 검증**: Action Plan 실행 후 해당 전문가가 검증
+
+### 발동 명령어
+```
+수동: "전문가 소집해서 [문제] 해결해줘" 또는 "이사회 긴급 회의 소집"
+자동: 조건 충족 시 자동 발동 (복잡도 8+, 3-Strike, 기술 충돌 등)
+```
+
+**상세 매뉴얼**: `skills/00_CORE/expert-assembly/SKILL.md`
+
+---
+
 ## 🔍 투명성 프로토콜 (Radical Transparency Active)
 - **[MANDATORY] 회의 중계 (Live Debate Log)**: 이사회 및 프로젝트 회의 시, 단순 요약본만 던지지 마라. **"누가 어떤 의견을 냈고, 누가 반박했으며, 그 의견이 왜 기각/수용되었는지"** 대화 흐름(Transcript)을 포함하라.
 - **사고의 가시화**: `<thinking>` 태그를 적극 활용하여 내부 비판 과정을 사용자에게 노출하라.
