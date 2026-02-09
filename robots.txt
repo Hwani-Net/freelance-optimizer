@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://tranquil-sopapillas-2af29d.netlify.app/sitemap.xml
+
+Sitemap: https://freelance-optimizer-clean-modern.pages.dev/sitemap.xml

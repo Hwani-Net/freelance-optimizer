@@ -5,7 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
     <title>Freelance Value Optimizer | 프리랜서 시급 계산기 2026</title>
-    <meta name="description" content="2026년 기준 인플레이션과 대한민국 소득세율을 반영한 프리랜서 세후 시급 계산기. 환율 변환, 공유 링크, 차트 대시보드 포함.">
+    <meta name="description" content="2026년 기준 인플레이션과 글로벌 소득세율을 반영한 프리랜서 세후 시급 계산기. 환율 변환, 차트 대시보드 포함.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://freelance-optimizer-clean-modern.pages.dev/">
+    <meta property="og:title" content="Freelance Value Optimizer 2026">
+    <meta property="og:description" content="내 시간의 진짜 가치는 얼마일까요? 2026년 경제 지표를 반영한 세후 시급 계산기.">
+    <meta property="og:image" content="https://freelance-optimizer-clean-modern.pages.dev/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://freelance-optimizer-clean-modern.pages.dev/">
+    <meta property="twitter:title" content="Freelance Value Optimizer 2026">
+    <meta property="twitter:description" content="전문적인 프리랜서 시급 산출 로직을 경험하세요.">
+    <meta property="twitter:image" content="https://freelance-optimizer-clean-modern.pages.dev/og-image.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -115,6 +130,9 @@
                     <button onclick="setCountry('JP')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇯🇵 Japan</button>
                     <button onclick="setCountry('CN')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇨🇳 China</button>
                     <button onclick="setCountry('TW')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇹🇼 Taiwan</button>
+                    <button onclick="setCountry('UK')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇬🇧 United Kingdom</button>
+                    <button onclick="setCountry('CA')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇨🇦 Canada</button>
+                    <button onclick="setCountry('DE')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇩🇪 Germany</button>
                 </div>
             </div>
             <!-- Language Switcher -->
@@ -864,14 +882,51 @@
             'TW': {
                 name: 'Taiwan',
                 currency: 'TWD',
-                withholdingRate: 0, // Varies by profession
-                localTaxRate: 0, // No separate local tax
-                brackets: [ // 2026 Individual income tax
+                withholdingRate: 0,
+                localTaxRate: 0,
+                brackets: [
                     { lower: 0, upper: 560000, rate: 0.05, base: 0 },
                     { lower: 560000, upper: 1260000, rate: 0.12, base: 28000 },
                     { lower: 1260000, upper: 2520000, rate: 0.20, base: 112000 },
                     { lower: 2520000, upper: 4720000, rate: 0.30, base: 364000 },
                     { lower: 4720000, upper: Infinity, rate: 0.40, base: 1024000 }
+                ]
+            },
+            'UK': {
+                name: 'United Kingdom',
+                currency: 'GBP',
+                withholdingRate: 0,
+                localTaxRate: 0,
+                brackets: [
+                    { lower: 0, upper: 12570, rate: 0, base: 0 },
+                    { lower: 12570, upper: 50270, rate: 0.20, base: 0 },
+                    { lower: 50270, upper: 125140, rate: 0.40, base: 7540 },
+                    { lower: 125140, upper: Infinity, rate: 0.45, base: 37488 }
+                ]
+            },
+            'CA': {
+                name: 'Canada',
+                currency: 'CAD',
+                withholdingRate: 0,
+                localTaxRate: 0.1, // Provincial average simplification
+                brackets: [
+                    { lower: 0, upper: 55867, rate: 0.15, base: 0 },
+                    { lower: 55867, upper: 111733, rate: 0.205, base: 8380 },
+                    { lower: 111733, upper: 173205, rate: 0.26, base: 19833 },
+                    { lower: 173205, upper: 246752, rate: 0.29, base: 35815 },
+                    { lower: 246752, upper: Infinity, rate: 0.33, base: 57144 }
+                ]
+            },
+            'DE': {
+                name: 'Germany',
+                currency: 'EUR',
+                withholdingRate: 0,
+                localTaxRate: 0.055, // Solidarity surcharge
+                brackets: [
+                    { lower: 0, upper: 11604, rate: 0, base: 0 },
+                    { lower: 11604, upper: 66760, rate: 0.25, base: 0 }, // Simplified linear progress
+                    { lower: 66760, upper: 277825, rate: 0.42, base: 13789 },
+                    { lower: 277825, upper: Infinity, rate: 0.45, base: 102436 }
                 ]
             }
         };
@@ -914,17 +969,26 @@
                 ? salary * (1 + inflation / 100)
                 : (salary + annualSavings) * (1 + inflation / 100);
 
-            const taxableIncome = Math.max(0, adjustedAnnualTarget - expenses);
+            const taxableIncomeKRW = Math.max(0, adjustedAnnualTarget - expenses);
             const system = taxSystems[currentCountry];
             
-            // Calculate income tax based on selected country
-            const nationalTax = calcIncomeTax(taxableIncome);
-            const localTax = nationalTax * system.localTaxRate;
+            // FX Conversion for accurate tax bracket comparison
+            const fx = (currentCountry === 'KR') ? 1 : (state.fxRate || 1320);
+            const taxableIncomeLocal = taxableIncomeKRW / fx;
             
-            // Add self-employment tax for US
-            const selfEmploymentTax = (currentCountry === 'US') 
-                ? adjustedAnnualTarget * (system.selfEmploymentTax || 0) 
+            // Calculate income tax in local currency
+            const nationalTaxLocal = calcIncomeTax(taxableIncomeLocal);
+            const localTaxLocal = nationalTaxLocal * system.localTaxRate;
+            
+            // Add self-employment tax for US (calculated in local USD then back to KRW)
+            const selfEmploymentTaxLocal = (currentCountry === 'US') 
+                ? (adjustedAnnualTarget / fx) * (system.selfEmploymentTax || 0) 
                 : 0;
+            
+            // Convert all taxes back to KRW for internal consistency
+            const nationalTax = nationalTaxLocal * fx;
+            const localTax = localTaxLocal * fx;
+            const selfEmploymentTax = selfEmploymentTaxLocal * fx;
             
             const totalTax = nationalTax + localTax + selfEmploymentTax;
             const withheld = adjustedAnnualTarget * system.withholdingRate;
