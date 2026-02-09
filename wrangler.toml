@@ -1,6 +1,0 @@
-name = "freelance-optimizer-clean-modern"
-pages_build_output_dir = "."
-
-[vars]
-GOOGLE_API_KEY = "AIzaSyC40wcKnUCgm4zHMIGNTfYDo2zvWSteCNo"
-GEMINI_API_KEY = "AIzaSyC40wcKnUCgm4zHMIGNTfYDo2zvWSteCNo"
