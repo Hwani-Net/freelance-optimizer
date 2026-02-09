@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 프리랜서 성공을 위한 경제 가이드</title>
+    <meta name="description" content="2026년 인플레이션 환경 속 프리랜서를 위한 가치 기반 가격 책정, 절세, 자산 관리 전략을 심도 있게 정리한 경제 가이드.">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-h: 200;
+            --accent-s: 95%;
+            --accent-l: 62%;
+            --accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+            --accent-strong: hsl(198 100% 68%);
+            --accent-soft: hsl(200 90% 70% / 0.25);
+            --bg-deep: #070b16;
+            --bg-panel: hsl(222 48% 14% / 0.82);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-dim: #a2b2c6;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-deep);
+            color: #f8fafc;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 8% 20%, hsl(196 100% 60% / 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 85% 15%, hsl(270 90% 70% / 0.18) 0%, transparent 38%),
+                radial-gradient(circle at 50% 80%, hsl(220 90% 55% / 0.16) 0%, transparent 40%),
+                linear-gradient(180deg, #060910 0%, #0c1224 55%, #0a0f1d 100%);
+        }
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .neon-text {
+            text-shadow:
+                0 0 12px hsl(var(--accent-h) var(--accent-s) 60% / 0.45),
+                0 0 28px hsl(var(--accent-h) var(--accent-s) 60% / 0.25);
+        }
+        .glass-panel {
+            background: var(--bg-panel);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 18px 45px -18px rgba(0, 0, 0, 0.6), 0 0 28px hsl(200 100% 60% / 0.08);
+        }
+        .chip {
+            background: hsl(220 35% 16% / 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, hsl(198 100% 60%), hsl(220 90% 58%));
+            border: none;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px -6px hsl(200 100% 60% / 0.55);
+        }
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 32px 20px 60px;
+        }
+        header {
+            text-align: center;
+            margin: 24px 0 36px;
+        }
+        header h1 {
+            font-size: clamp(2rem, 4vw, 3.25rem);
+            margin: 12px 0 10px;
+            letter-spacing: -0.02em;
+        }
+        header p {
+            color: var(--text-dim);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        .section-title {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+        .section {
+            padding: 26px;
+            border-radius: 24px;
+            margin-bottom: 20px;
+        }
+        .section p {
+            color: #d2d9e6;
+            line-height: 1.75;
+            margin: 0 0 14px;
+        }
+        .section p:last-child {
+            margin-bottom: 0;
+        }
+        .highlight {
+            color: #e2f2ff;
+            font-weight: 600;
+        }
+        .note {
+            border-left: 3px solid var(--accent-strong);
+            padding-left: 12px;
+            color: #b6c4d8;
+            margin: 16px 0 0;
+        }
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin: 26px 0 10px;
+        }
+        footer {
+            text-align: center;
+            color: #7d8aa0;
+            font-size: 0.8rem;
+            margin-top: 28px;
+        }
+        @media (max-width: 720px) {
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cta-row">
+            <a class="btn-primary" href="index.html">홈으로</a>
+            <div class="chip" style="padding: 8px 16px; border-radius: 999px; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: #9fb3c8;">
+                Freelance Value Optimizer Guide
+            </div>
+        </div>
+
+        <header>
+            <h1 class="font-display neon-text">2026 프리랜서 성공을 위한 경제 가이드</h1>
+            <p>2026년의 비용 상승 압력과 시장 재편 속에서 프리랜서가 수익성과 안정성을 동시에 확보하기 위한 전략을 정리했습니다.</p>
+        </header>
+
+        <section class="glass-panel section">
+            <h2 class="section-title">1. 2026년 인플레이션이 프리랜서에게 미치는 영향</h2>
+            <p>
+                2026년은 생활비와 사업 운영비가 동시에 오르는 구간으로 정의되는 해입니다. 특히 프리랜서는 고정 급여가 없기 때문에 인플레이션이 곧바로
+                <span class="highlight">실질 소득의 하락</span>으로 이어집니다. 프로젝트 단가가 정체된 상태에서 교통비, 구독 서비스, 장비 교체 비용이 상승하면
+                실제로 가져가는 순이익은 얇아집니다.
+            </p>
+            <p>
+                가장 큰 위험은 가격은 그대로인데 지출만 빠르게 증가하는 구조입니다. 이때는 기존 단가를 유지하는 것 자체가 수익 감소를 의미합니다.
+                인플레이션이 1% 상승할 때마다 목표 매출을 1% 이상 상향해야 실질 구매력이 유지됩니다. 또한 장기 프로젝트일수록 계약 시점과 인도 시점 사이에
+                비용 구조가 달라지므로, <span class="highlight">계약서에 물가 조정 조건</span>을 포함하거나 중간 마일스톤 단가 조정을 합의하는 방식이 필요합니다.
+            </p>
+            <p class="note">
+                실무 팁: 2026년에는 원가가 빠르게 움직이므로 분기 단위로 자신의 "생존 단가"와 "목표 단가"를 재산정하고, 기존 고객에게는 가치 상승 근거를
+                문서로 설명하는 습관이 중요합니다.
+            </p>
+        </section>
+
+        <section class="glass-panel section">
+            <h2 class="section-title">2. 가치 기반 가격 책정(Value-based Pricing) 전략</h2>
+            <p>
+                가치 기반 가격 책정은 시간당 요율이 아니라 <span class="highlight">고객이 얻는 결과</span>를 기준으로 가격을 정하는 방식입니다. 2026년에는
+                예산이 축소된 기업이 많아 "비용" 대신 "성과"에 투자하려는 경향이 강해집니다. 따라서 프리랜서는 자신의 산출물이 고객의 매출, 비용 절감, 리스크
+                감소에 어떤 영향을 주는지 정량화해야 합니다.
+            </p>
+            <p>
+                핵심은 범위를 정의하고 가치를 언어화하는 것입니다. 예를 들어 "랜딩페이지 제작"이 아니라 "전환율 20% 개선을 위한 퍼널 설계"라고 말해야
+                합니다. 또한 가격 제안서에는 최소·표준·프리미엄의 3단 구조를 제시해 고객이 선택하도록 만들면, 가격 협상보다 <span class="highlight">가치 비교</span>
+               가 중심이 됩니다. 이때 각 패키지에는 성과 지표, 리스크 관리 범위, 제공 속도를 명확히 적어야 합니다.
+            </p>
+            <p>
+                가치 기반 모델에서는 사후 피드백과 성과 보고가 필수입니다. 고객이 체감한 가치를 문서로 정리해두면, 다음 프로젝트에서 신뢰도가 높아지고
+                재계약 단가를 끌어올릴 근거가 생깁니다. 결과적으로 가치 기반 가격 책정은 단가 인상의 도구이자 <span class="highlight">장기 관계를 강화하는 전략</span>입니다.
+            </p>
+        </section>
+
+        <section class="glass-panel section">
+            <h2 class="section-title">3. 프리랜서를 위한 절세 및 자산 관리 기초</h2>
+            <p>
+                프리랜서의 세금은 단순히 비용을 줄이는 문제가 아니라 현금 흐름을 안정화하는 문제입니다. 2026년에는 소득 변동성이 큰 업종일수록
+                세금 예측이 중요하며, <span class="highlight">분기 단위로 예상 세액을 확보</span>하는 방식이 안정적입니다. 원천징수 3.3%만으로는 실제 세액을
+                충당하기 어려운 경우가 많으므로, "예상 세액 계좌"를 별도로 두고 자동 이체를 걸어두면 연말 부담이 크게 줄어듭니다.
+            </p>
+            <p>
+                비용 관리는 "소모성 지출"과 "투자성 지출"을 구분하는 것이 핵심입니다. 장비, 교육, 툴 구독은 장기 생산성을 높이는 투자로 분류하고, 이를
+                문서화하면 세무 처리에도 유리합니다. 또한 현금성 자산은 6~9개월 생활비를 유지하는 것을 목표로 하되, 그 이상의 자금은 낮은 변동성의
+                분산 포트폴리오로 이동하는 것이 2026년의 안정적인 기본값입니다.
+            </p>
+            <p>
+                마지막으로, 자산 관리는 단순한 저축이 아니라 <span class="highlight">수익 구조를 다변화</span>하는 과정입니다. 프리랜서의 핵심 자산은 자신의
+                전문성입니다. 이 전문성을 템플릿, 교육, 컨설팅 패키지로 구조화하면 시장 변동에도 버틸 수 있는 2차 수익원이 생깁니다. 절세는 비용 최소화가 아니라
+                지속 가능한 성장의 연료라는 관점으로 접근해야 합니다.
+            </p>
+        </section>
+
+        <footer>
+            © 2026 Antigravity Labs. Freelance Value Optimizer Series.
+        </footer>
+    </div>
+</body>
+</html>

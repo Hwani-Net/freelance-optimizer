@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로젝트 소개 | Freelance Value Optimizer</title>
+    <meta name="description" content="2026 프리랜서 가치 Optimizer 프로젝트 소개 및 인플레이션 데이터 출처 안내">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-h: 200;
+            --accent-s: 95%;
+            --accent-l: 62%;
+            --accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+            --accent-strong: hsl(198 100% 68%);
+            --accent-soft: hsl(200 90% 70% / 0.25);
+            --bg-deep: #070b16;
+            --bg-panel: hsl(222 48% 14% / 0.82);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-dim: #a2b2c6;
+        }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-deep);
+            color: #f8fafc;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 8% 20%, hsl(196 100% 60% / 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 85% 15%, hsl(270 90% 70% / 0.18) 0%, transparent 38%),
+                radial-gradient(circle at 50% 80%, hsl(220 90% 55% / 0.16) 0%, transparent 40%),
+                linear-gradient(180deg, #060910 0%, #0c1224 55%, #0a0f1d 100%);
+        }
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .neon-text {
+            text-shadow:
+                0 0 12px hsl(var(--accent-h) var(--accent-s) 60% / 0.45),
+                0 0 28px hsl(var(--accent-h) var(--accent-s) 60% / 0.25);
+        }
+        .glass-panel {
+            background: var(--bg-panel);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 18px 45px -18px rgba(0, 0, 0, 0.6), 0 0 28px hsl(200 100% 60% / 0.08);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, hsl(198 100% 60%), hsl(220 90% 58%));
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px -6px hsl(200 100% 60% / 0.55);
+        }
+        .chip {
+            background: hsl(220 35% 16% / 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+        }
+        .section-title {
+            color: #e2e8f0;
+        }
+        .section-body {
+            color: #a8b3c6;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-4xl mx-auto">
+        <header class="text-center mb-10">
+            <div class="inline-flex items-center gap-2 px-4 py-2 mb-5 rounded-full chip text-[10px] font-bold tracking-widest text-slate-300 uppercase">
+                Freelance Value Optimizer • About
+            </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-3 font-display">
+                <span class="neon-text bg-clip-text text-transparent bg-gradient-to-r from-sky-200 via-sky-300 to-indigo-300">
+                    2026 프리랜서 시급 가치 Optimizer
+                </span>
+            </h1>
+            <p class="text-slate-300 text-sm md:text-base font-light">
+                데이터로 설계하는 프리랜서의 시간 가치
+            </p>
+        </header>
+
+        <main class="space-y-6">
+            <section class="glass-panel rounded-3xl p-6 md:p-8">
+                <h2 class="text-lg font-bold section-title mb-3">프로젝트 취지</h2>
+                <div class="section-body text-sm space-y-2">
+                    <p>Freelance Value Optimizer는 2026년 환경을 기준으로, 프리랜서가 자신의 시간 가치를 계산하고 협상 기준을 세울 수 있도록 설계된 도구입니다.</p>
+                    <p>세후 기준의 실질 시급을 산출하고, 환율과 저축 목표까지 반영해 지속 가능한 수익 구조를 제안합니다.</p>
+                </div>
+            </section>
+
+            <section class="glass-panel rounded-3xl p-6 md:p-8">
+                <h2 class="text-lg font-bold section-title mb-3">인플레이션 데이터 출처</h2>
+                <div class="section-body text-sm space-y-2">
+                    <p>인플레이션 전망치는 주요 국제기구(OECD 등)의 중기 경제전망 보고서에서 공개하는 수치를 참고합니다.</p>
+                    <p>국내 물가 추세는 통계청 소비자물가지수(CPI) 및 한국은행의 공개 통계를 참고하여 시뮬레이션에 반영합니다.</p>
+                    <p>본 서비스의 계산 결과는 참고용이며, 실제 세무·경제 환경과 차이가 있을 수 있습니다.</p>
+                </div>
+            </section>
+
+            <section class="glass-panel rounded-3xl p-6 md:p-8">
+                <h2 class="text-lg font-bold section-title mb-3">지속적인 업데이트</h2>
+                <div class="section-body text-sm space-y-2">
+                    <p>세율, 물가, 환율 등 핵심 지표는 정기적으로 업데이트됩니다.</p>
+                    <p>변경 사항은 메인 페이지의 공지 또는 버전 표기로 안내합니다.</p>
+                </div>
+            </section>
+
+            <div class="flex justify-center">
+                <a href="index.html" class="btn-primary px-6 py-3 rounded-xl font-bold text-sm text-white">홈으로</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

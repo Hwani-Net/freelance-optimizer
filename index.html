@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <title>Freelance Value Optimizer | 프리랜서 시급 계산기 2026</title>
+    <meta name="description" content="2026년 기준 인플레이션과 대한민국 소득세율을 반영한 프리랜서 세후 시급 계산기. 환율 변환, 공유 링크, 차트 대시보드 포함.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-h: 200;
+            --accent-s: 95%;
+            --accent-l: 62%;
+            --accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+            --accent-strong: hsl(198 100% 68%);
+            --accent-soft: hsl(200 90% 70% / 0.25);
+            --bg-deep: #070b16;
+            --bg-panel: hsl(222 48% 14% / 0.82);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-dim: #a2b2c6;
+            --text-main: #f8fafc;
+            --input-bg: hsl(220 40% 12% / 0.85);
+            --card-bg: hsl(222 47% 11% / 0.6);
+            --accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+            --shadow-color: rgba(0, 0, 0, 0.6);
+        }
+
+        [data-theme="light"] {
+            --bg-deep: #f8fafc;
+            --bg-panel: rgba(255, 255, 255, 0.82);
+            --glass-border: rgba(56, 189, 248, 0.25);
+            --text-dim: #64748b;
+            --text-main: #1e293b;
+            --input-bg: #ffffff;
+            --card-bg: #ffffff;
+            --accent: #2563eb;
+            --shadow-color: rgba(56, 189, 248, 0.08);
+        }
+
+        /* Full Theme Specificity for Dark Mode */
+        [data-theme="dark"] {
+            --accent-h: 200;
+            --accent-s: 95%;
+            --accent-l: 62%;
+            --accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+            --accent-strong: hsl(198 100% 68%);
+            --accent-soft: hsl(200 90% 70% / 0.25);
+            --bg-deep: #070b16;
+            --bg-panel: hsl(222 48% 14% / 0.82);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-dim: #a2b2c6;
+            --text-main: #f8fafc;
+            --input-bg: hsl(220 40% 12% / 0.85);
+            --card-bg: hsl(222 47% 11% / 0.6);
+            --shadow-color: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Midnight Nebula Dark Mode Enhancements */
+        [data-theme="dark"] body {
+            background-image:
+                radial-gradient(circle at 8% 20%, hsl(196 100% 60% / 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 85% 15%, hsl(270 90% 70% / 0.18) 0%, transparent 38%),
+                radial-gradient(circle at 50% 80%, hsl(220 90% 55% / 0.16) 0%, transparent 40%),
+                linear-gradient(180deg, #060910 0%, #0c1224 55%, #0a0f1d 100%);
+        }
+
+        [data-theme="dark"] .glass-panel {
+            background: var(--bg-panel);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 18px 45px -18px var(--shadow-color), 0 0 28px hsl(200 100% 60% / 0.08);
+        }
+
+        [data-theme="dark"] .neon-text {
+            text-shadow:
+                0 0 12px hsl(var(--accent-h) var(--accent-s) 60% / 0.45),
+                0 0 28px hsl(var(--accent-h) var(--accent-s) 60% / 0.25);
+        }
+
+        [data-theme="dark"] .chip {
+            background: hsl(220 35% 16% / 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+        }
+
+        [data-theme="dark"] .btn-primary {
+            background: linear-gradient(135deg, hsl(198 100% 60%), hsl(220 90% 58%));
+            box-shadow: 0 12px 30px -6px hsl(200 100% 60% / 0.35);
+        }
+
+        [data-theme="dark"] .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px -6px hsl(200 100% 60% / 0.55);
+        }
+
+        /* Premium Winter Aero Refinements */
+        [data-theme="light"] body {
+            background-image: 
+                radial-gradient(circle at 5% 10%, rgba(37, 99, 235, 0.04) 0%, transparent 35%),
+                radial-gradient(circle at 95% 90%, rgba(14, 165, 233, 0.04) 0%, transparent 35%),
+                linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        [data-theme="light"] .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 15px 35px -5px var(--shadow-color), 0 5px 15px -5px var(--shadow-color);
+        }
+
+        [data-theme="light"] .text-slate-100,
+        [data-theme="light"] .text-slate-200,
+        [data-theme="light"] .text-slate-300,
+        [data-theme="light"] .text-slate-400,
+        [data-theme="light"] .text-slate-500 {
+            color: #475569 !important;
+            opacity: 1 !important;
+        }
+        
+        [data-theme="light"] .chip {
+            background: #ffffff !important;
+            color: #1d4ed8 !important;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.05);
+        }
+
+        [data-theme="light"] .metric-card {
+            background: #ffffff !important;
+            border: 1px solid #eef2f7 !important;
+        }
+
+        [data-theme="light"] .input-field {
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0;
+            color: #1e293b;
+        }
+
+        [data-theme="light"] .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+            color: #ffffff !important;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+
+        [data-theme="light"] header h1 span {
+            background: linear-gradient(135deg, #1e40af, #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Dark Mode Explicit overrides */
+        [data-theme="dark"] .text-slate-200,
+        [data-theme="dark"] .text-slate-300 {
+            color: #f8fafc !important;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+        }
+
+        .font-display { font-family: 'Space Grotesk', sans-serif; }
+        
+        .glass-panel {
+            background: var(--bg-panel);
+            border: 1px solid var(--glass-border);
+            transition: border-color 0.3s ease;
+        }
+        .glass-panel:hover {
+            border-color: var(--accent);
+        }
+        .input-field {
+            background: var(--input-bg);
+            border: 2px solid var(--glass-border);
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            filter: brightness(1.1);
+        }
+        .chip {
+            background: hsl(220 35% 16% / 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+        }
+        .metric-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+        }
+        .toggle-track {
+            background: rgba(148, 163, 184, 0.2);
+        }
+        .toggle-knob {
+            background: white;
+        }
+        .toggle-checkbox:checked + .toggle-track {
+            background: var(--accent);
+        }
+        .toggle-checkbox:checked + .toggle-track .toggle-knob {
+            transform: translateX(18px);
+        }
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-result {
+            animation: countUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .fade-in {
+            animation: countUp 0.5s ease forwards;
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease forwards;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 flex flex-col items-center justify-center min-h-screen">
+
+    <div class="max-w-6xl w-full">
+        <div class="fixed top-6 right-6 z-50 flex gap-2">
+            <!-- AI Chatbot Button -->
+            <button id="ai-chatbot-btn" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:scale-110 transition-transform text-xl animate-pulse" title="AI Hourly Rate Advisor" onclick="toggleAIChatbot()">🤖</button>
+            <!-- Country/Tax Region Selector -->
+            <div class="relative group">
+                <button id="country-btn" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:scale-110 transition-transform text-xl" title="Tax Region">🏛️</button>
+                <div id="country-menu" class="hidden absolute right-0 mt-2 glass-panel rounded-lg p-2 min-w-[160px] shadow-xl">
+                    <button onclick="setCountry('KR')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇰🇷 South Korea</button>
+                    <button onclick="setCountry('US')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇺🇸 United States</button>
+                    <button onclick="setCountry('JP')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇯🇵 Japan</button>
+                    <button onclick="setCountry('CN')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇨🇳 China</button>
+                    <button onclick="setCountry('TW')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇹🇼 Taiwan</button>
+                </div>
+            </div>
+            <!-- Language Switcher -->
+            <div class="relative group">
+                <button id="lang-btn" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:scale-110 transition-transform text-xl" title="Language">🌐</button>
+                <div id="lang-menu" class="hidden absolute right-0 mt-2 glass-panel rounded-lg p-2 min-w-[120px] shadow-xl">
+                    <button onclick="setLanguage('ko')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇰🇷 한국어</button>
+                    <button onclick="setLanguage('en')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇺🇸 English</button>
+                    <button onclick="setLanguage('zh-CN')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇨🇳 简体中文</button>
+                    <button onclick="setLanguage('zh-TW')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇹🇼 繁體中文</button>
+                    <button onclick="setLanguage('ja')" class="w-full px-3 py-2 text-left hover:bg-white/10 rounded transition text-sm">🇯🇵 日本語</button>
+                </div>
+            </div>
+            <!-- Theme Switcher -->
+            <button onclick="setTheme('light')" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:scale-110 transition-transform" title="Light Mode">☀️</button>
+            <button onclick="setTheme('dark')" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:scale-110 transition-transform" title="Dark Mode">🌙</button>
+            <button onclick="setTheme('system')" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:scale-110 transition-transform" title="System Theme">💻</button>
+        </div>
+
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-3 font-display">
+                <span class="neon-text bg-clip-text text-transparent bg-gradient-to-r from-sky-200 via-sky-300 to-indigo-300">
+                    Freelance Value Optimizer
+                </span>
+            </h1>
+            <p class="text-slate-300 text-sm md:text-base font-light">
+                대한민국 세율을 반영한 <strong>세후 시급</strong>을 산출하고, 환율/차트까지 한 번에 확인하세요.
+            </p>
+        </header>
+
+        <main class="grid lg:grid-cols-[420px_1fr] gap-6">
+            <section class="glass-panel rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="flex items-center justify-between mb-6">
+                    <button id="mode-toggle" class="text-xs font-bold text-slate-400 hover:text-sky-300 transition-colors flex items-center gap-2">
+                        <span id="mode-label">⚡ 간편 모드 (Simple)</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-widest">표시 통화</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="currency-toggle" class="toggle-checkbox sr-only">
+                            <span class="toggle-track w-10 h-5 rounded-full flex items-center px-0.5 transition-colors">
+                                <span class="toggle-knob w-4 h-4 rounded-full transition-transform"></span>
+                            </span>
+                        </label>
+                        <span id="currency-label" class="text-xs font-black" style="color: var(--text-main)">KRW</span>
+                    </div>
+                </div>
+
+                <div class="space-y-6 transition-all duration-300" id="input-container">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">현재 연 매출/연봉 (세전)</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">₩</span>
+                            <input type="text" id="salary" class="input-field w-full p-4 pl-10 rounded-xl text-xl font-black bg-black" placeholder="예: 50,000,000" onkeyup="formatCurrency(this)">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">KRW/USD 환율</label>
+                            <input type="number" id="fx-rate" class="input-field w-full p-3 rounded-lg text-sm bg-black" value="1320" min="1" step="0.1">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">연간 작업 시간</label>
+                            <input type="number" id="hours" class="input-field w-full p-3 rounded-lg text-sm bg-black" value="1600" placeholder="1600">
+                        </div>
+                    </div>
+
+                    <div id="detail-fields" class="hidden space-y-6 pt-4 border-t border-slate-600/60">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">월 목표 저축액</label>
+                                <input type="text" id="savings" class="input-field w-full p-3 rounded-lg text-sm bg-black" placeholder="0" onkeyup="formatCurrency(this)">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">연간 필요경비</label>
+                                <input type="text" id="expenses" class="input-field w-full p-3 rounded-lg text-sm bg-black" placeholder="0" onkeyup="formatCurrency(this)">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="flex justify-between text-[10px] font-bold text-slate-300 uppercase mb-2">
+                                <span>인플레이션 전망 (2026 OECD)</span>
+                                <span class="text-sky-300" id="inflation-label">4.5%</span>
+                            </label>
+                            <input type="range" id="inflation" min="0" max="10" step="0.1" value="4.5" class="w-full h-1 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-sky-400">
+                        </div>
+                    </div>
+
+                    <button onclick="calculate()" class="btn-primary w-full p-5 rounded-xl font-bold text-lg text-white shadow-lg mt-2">
+                        내 가치 계산하기 (Calculate)
+                    </button>
+
+                    <p class="text-[10px] text-slate-500 leading-relaxed">
+                        입력은 KRW 기준입니다. 환율 토글은 결과 표시 통화만 변경합니다.
+                    </p>
+                </div>
+
+                <div id="result-view" class="hidden text-center py-2">
+                    <div class="mb-6">
+                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Recommended Hourly Rate</p>
+                        <h2 class="text-6xl md:text-7xl font-black text-main tracking-tighter" id="result-rate">0원</h2>
+                        <p class="text-lg text-emerald-500 mt-2 font-black" id="result-annual">세전 목표 매출: 0원</p>
+                        <p class="text-sm text-slate-500 mt-1 font-bold" id="result-net">세후 실수령: 0원</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3 mb-6">
+                        <button onclick="saveImage()" class="p-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-colors">
+                            📸 이미지 저장
+                        </button>
+                        <button onclick="copyLink()" class="p-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-colors">
+                            🔗 링크 복사
+                        </button>
+                        <button onclick="reset()" class="p-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-colors">
+                            🔄 다시 계산
+                        </button>
+                    </div>
+
+                    <p class="text-[10px] text-slate-400 leading-relaxed max-w-xs mx-auto">
+                        * 세후 수익은 3.3% 원천징수 및 소득세 누진세율(지방소득세 포함)을 단순 반영했습니다.
+                    </p>
+                </div>
+            </section>
+
+            <section class="space-y-6">
+                <div class="glass-panel rounded-3xl p-6 md:p-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold">세후 수익 대시보드</h3>
+                        <div class="text-[10px] text-slate-400 uppercase tracking-widest" id="theme-sub-label">Midnight Nebula</div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="metric-card rounded-2xl p-4">
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">세금 합계</p>
+                            <p class="text-2xl font-bold mt-2" id="metric-tax">0원</p>
+                            <p class="text-[11px] text-slate-500 mt-1" id="metric-tax-detail">국세 0원 · 지방세 0원</p>
+                        </div>
+                        <div class="metric-card rounded-2xl p-4">
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">원천징수(3.3%)</p>
+                            <p class="text-2xl font-bold mt-2" id="metric-withheld">0원</p>
+                            <p class="text-[11px] text-slate-500 mt-1" id="metric-gap">추가 납부 0원</p>
+                        </div>
+                        <div class="metric-card rounded-2xl p-4">
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">세후 시급</p>
+                            <p class="text-2xl font-bold mt-2" id="metric-hourly-net">0원</p>
+                            <p class="text-[11px] text-slate-500 mt-1" id="metric-hourly-gross">세전 시급 0원</p>
+                        </div>
+                        <div class="metric-card rounded-2xl p-4">
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">목표 저축액(연)</p>
+                            <p class="text-2xl font-bold mt-2" id="metric-savings">0원</p>
+                            <p class="text-[11px] text-slate-500 mt-1" id="metric-savings-share">순수익 대비 0%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-3xl p-6 md:p-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold">소득 · 세금 · 저축 비중</h3>
+                        <span class="text-[10px] text-slate-400 uppercase tracking-widest">Chart.js</span>
+                    </div>
+                    <div class="grid md:grid-cols-[220px_1fr] gap-6 items-center">
+                        <div class="relative w-full max-w-[220px] mx-auto">
+                            <canvas id="ratioChart" width="220" height="220"></canvas>
+                        </div>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-300">세금</span>
+                                <span class="font-semibold" id="ratio-tax">0%</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-300">저축</span>
+                                <span class="font-semibold" id="ratio-savings">0%</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-300">가처분 소득</span>
+                                <span class="font-semibold" id="ratio-spendable">0%</span>
+                            </div>
+                            <div class="text-[11px] text-slate-500">
+                                세후 기준 비중입니다. 저축액이 세후 수익을 초과하면 가처분 소득은 0으로 표시됩니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- AI Chatbot Modal -->
+        <div id="ai-chatbot-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+            <div class="glass-panel rounded-3xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden">
+                <!-- Header -->
+                <div class="flex items-center justify-between p-6 border-b border-white/10">
+                    <div class="flex items-center gap-3">
+                        <span class="text-3xl">🤖</span>
+                        <div>
+                            <h3 class="text-xl font-bold">AI Hourly Rate Advisor</h3>
+                            <p class="text-xs text-slate-400">Powered by Google Gemini</p>
+                        </div>
+                    </div>
+                    <button onclick="toggleAIChatbot()" class="w-10 h-10 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center">
+                        ✕
+                    </button>
+                </div>
+
+                <!-- Chat Messages -->
+                <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4">
+                    <!-- Welcome Message -->
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center flex-shrink-0">
+                            🤖
+                        </div>
+                        <div class="glass-panel rounded-2xl rounded-tl-none p-4 flex-1">
+                            <p class="text-sm">안녕하세요! AI 시급 추천 어드바이저입니다. 👋</p>
+                            <p class="text-sm mt-2">업종, 경력, 지역 등을 알려주시면 적정 시급을 추천해드립니다!</p>
+                            <div class="mt-3 text-xs text-slate-400">
+                                예시: "웹 개발자, 경력 3년, 서울"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="p-6 border-t border-white/10">
+                    <div class="flex gap-2">
+                        <input 
+                            type="text" 
+                            id="chat-input" 
+                            placeholder="업종, 경력, 지역을 입력하세요..." 
+                            class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400/50 transition-all"
+                            onkeypress="if(event.key==='Enter') sendMessage()"
+                        >
+                        <button 
+                            onclick="sendMessage()" 
+                            class="px-6 py-3 bg-gradient-to-r from-sky-400 to-indigo-500 rounded-xl font-semibold hover:scale-105 transition-transform"
+                        >
+                            보내기
+                        </button>
+                    </div>
+                    <div class="mt-2 text-xs text-slate-500 text-center">
+                        * AI 추천은 참고용입니다. 실제 시급과 다를 수 있습니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-12 text-center opacity-70">
+            <div class="flex justify-center gap-4 mb-4 text-[10px] text-slate-400">
+                <a href="about.html" class="hover:text-sky-400 transition-colors">서비스 소개</a>
+                <span>•</span>
+                <a href="privacy.html" class="hover:text-sky-400 transition-colors">개인정보처리방침</a>
+                <span>•</span>
+                <a href="terms.html" class="hover:text-sky-400 transition-colors">이용약관</a>
+            </div>
+            <p class="text-[10px] text-slate-500">© 2026 Antigravity Labs. Freelance Value Optimizer v1.0</p>
+        </footer>
+    </div>
+
+    <div id="capture-area" style="position: fixed; top: -9999px; width: 420px; padding: 40px; background: #0f172a; color: white; text-align: center; font-family: sans-serif;">
+        <div style="border: 2px solid #38bdf8; border-radius: 20px; padding: 40px; background: rgba(56, 189, 248, 0.05);">
+            <p style="color: #94a3b8; font-size: 12px; font-weight: bold; letter-spacing: 2px; margin-bottom: 20px;">MY 2026 HOURLY RATE</p>
+            <h1 id="cap-rate" style="font-size: 56px; font-weight: 900; margin: 0; color: #fff;">0원</h1>
+            <p id="cap-annual" style="color: #34d399; font-size: 18px; margin-top: 10px; font-weight: bold;">0원</p>
+            <div style="margin-top: 40px; width: 40px; height: 4px; background: #38bdf8; margin-left: auto; margin-right: auto;"></div>
+            <p style="color: #64748b; font-size: 10px; margin-top: 20px;">VERIFIED BY ANTIGRAVITY</p>
+        </div>
+    </div>
+
+    <script>
+        // === Translation System ===
+        const translations = {
+            'ko': {
+                title: 'Freelance Value Optimizer',
+                subtitle: '대한민국 세율을 반영한 <strong>세후 시급</strong>을 산출하고, 환율/차트까지 한 번에 확인하세요.',
+                modeSimple: '⚡ 간편 모드 (Simple)',
+                modeDetail: '⚙️ 상세 모드 (Detail)',
+                currencyLabel: '표시 통화',
+                targetSalary: '희망 연 매출/연봉 (세전)',
+                krwUsdRate: 'KRW/USD 환율',
+                annualFxRate: '연간 적용 시급',
+                monthlySavings: '월 저축 목표',
+                annualExpenses: '연간 사업 경비',
+                annualWorkHours: '연간 근무 시간',
+                inflationRate: '인플레이션 반영',
+                calculateBtn: '내 가치 계산하기 (CALCULATE)',
+                disclaimer: '입력은 KRW 기준입니다. 환율 토글로 결과 표시 통화를 변경할 수 있습니다.',
+                dashboardTitle: '세후 수입 대시보드',
+                themeLabel: 'MIDNIGHT NEBULA',
+                themeLabelLight: 'WINTER AERO',
+                taxPaid: '세금 납부',
+                nationalLocal: '국세 {national} · 지방세 {local}',
+                withheld: '원천징수(3.3%)',
+                taxGap: '추가 납부 {amount}',
+                taxRefund: '환급 예상 {amount}',
+                netHourly: '세후 시급',
+                grossHourly: '세전 시급 {amount}',
+                savings: '저축',
+                savingsShare: '순수익 대비 {percent}%',
+                chartTitle: '소득 · 세금 · 저축 비중',
+                chartLabel: 'CHART.JS',
+                tax: '세금',
+                savingsChart: '저축',
+                spendable: '가처분 소득',
+                chartNote: '세후 기준 비율입니다. 차트에서 세후 수익을 토대로 가처분 소득은 0보다 작으면 표시됩니다.',
+                aboutLink: '서비스 소개',
+                privacyLink: '개인정보처리방침',
+                termsLink: '이용약관',
+                copyright: '© 2026 Antigravity Labs. Freelance Value Optimizer v1.0',
+                resultRate: '{rate}',
+                resultAnnual: '세전 목표 매출: {amount}',
+                resultNet: '세후 실수령: {amount}'
+            },
+            'en': {
+                title: 'Freelance Value Optimizer',
+                subtitle: 'Calculate your <strong>after-tax hourly rate</strong> with Korean tax rates, FX conversion, and visual dashboard.',
+                modeSimple: '⚡ Simple Mode',
+                modeDetail: '⚙️ Detail Mode',
+                currencyLabel: 'Display Currency',
+                targetSalary: 'Target Annual Revenue (Pre-tax)',
+                krwUsdRate: 'KRW/USD Exchange Rate',
+                annualFxRate: 'Annual Applied Rate',
+                monthlySavings: 'Monthly Savings Goal',
+                annualExpenses: 'Annual Business Expenses',
+                annualWorkHours: 'Annual Work Hours',
+                inflationRate: 'Inflation Adjustment',
+                calculateBtn: 'CALCULATE MY VALUE',
+                disclaimer: 'Input is in KRW. Toggle currency to change display.',
+                dashboardTitle: 'After-Tax Income Dashboard',
+                themeLabel: 'MIDNIGHT NEBULA',
+                themeLabelLight: 'WINTER AERO',
+                taxPaid: 'Tax Paid',
+                nationalLocal: 'National {national} · Local {local}',
+                withheld: 'Withheld (3.3%)',
+                taxGap: 'Additional Payment {amount}',
+                taxRefund: 'Expected Refund {amount}',
+                netHourly: 'Net Hourly Rate',
+                grossHourly: 'Gross Hourly {amount}',
+                savings: 'Savings',
+                savingsShare: '{percent}% of Net Income',
+                chartTitle: 'Income · Tax · Savings Breakdown',
+                chartLabel: 'CHART.JS',
+                tax: 'Tax',
+                savingsChart: 'Savings',
+                spendable: 'Spendable Income',
+                chartNote: 'Ratios based on after-tax income. Spendable income shown if above 0.',
+                aboutLink: 'About',
+                privacyLink: 'Privacy Policy',
+                termsLink: 'Terms of Service',
+                copyright: '© 2026 Antigravity Labs. Freelance Value Optimizer v1.0',
+                resultRate: '{rate}',
+                resultAnnual: 'Target Revenue: {amount}',
+                resultNet: 'Net Income: {amount}'
+            },
+            'zh-CN': {
+                title: 'Freelance Value Optimizer',
+                subtitle: '根据韩国税率计算<strong>税后时薪</strong>，包含汇率转换和可视化仪表板。',
+                modeSimple: '⚡ 简易模式',
+                modeDetail: '⚙️ 详细模式',
+                currencyLabel: '显示货币',
+                targetSalary: '目标年收入（税前）',
+                krwUsdRate: 'KRW/USD 汇率',
+                annualFxRate: '年度适用汇率',
+                monthlySavings: '月度储蓄目标',
+                annualExpenses: '年度业务费用',
+                annualWorkHours: '年度工作时间',
+                inflationRate: '通胀调整',
+                calculateBtn: '计算我的价值',
+                disclaimer: '输入以韩元为准。切换货币以更改显示。',
+                dashboardTitle: '税后收入仪表板',
+                themeLabel: '午夜星云',
+                themeLabelLight: '冬季航空',
+                taxPaid: '已缴税款',
+                nationalLocal: '国税 {national} · 地方税 {local}',
+                withheld: '预扣税 (3.3%)',
+                taxGap: '额外缴纳 {amount}',
+                taxRefund: '预计退税 {amount}',
+                netHourly: '税后时薪',
+                grossHourly: '税前时薪 {amount}',
+                savings: '储蓄',
+                savingsShare: '净收入的 {percent}%',
+                chartTitle: '收入 · 税收 · 储蓄比例',
+                chartLabel: 'CHART.JS',
+                tax: '税收',
+                savingsChart: '储蓄',
+                spendable: '可支配收入',
+                chartNote: '比例基于税后收入。可支配收入大于0时显示。',
+                aboutLink: '服务介绍',
+                privacyLink: '隐私政策',
+                termsLink: '服务条款',
+                copyright: '© 2026 Antigravity Labs. Freelance Value Optimizer v1.0',
+                resultRate: '{rate}',
+                resultAnnual: '目标收入: {amount}',
+                resultNet: '净收入: {amount}'
+            },
+            'zh-TW': {
+                title: 'Freelance Value Optimizer',
+                subtitle: '根據韓國稅率計算<strong>稅後時薪</strong>，包含匯率轉換和視覺化儀表板。',
+                modeSimple: '⚡ 簡易模式',
+                modeDetail: '⚙️ 詳細模式',
+                currencyLabel: '顯示貨幣',
+                targetSalary: '目標年收入（稅前）',
+                krwUsdRate: 'KRW/USD 匯率',
+                annualFxRate: '年度適用匯率',
+                monthlySavings: '月度儲蓄目標',
+                annualExpenses: '年度業務費用',
+                annualWorkHours: '年度工作時間',
+                inflationRate: '通膨調整',
+                calculateBtn: '計算我的價值',
+                disclaimer: '輸入以韓元為準。切換貨幣以更改顯示。',
+                dashboardTitle: '稅後收入儀表板',
+                themeLabel: '午夜星雲',
+                themeLabelLight: '冬季航空',
+                taxPaid: '已繳稅款',
+                nationalLocal: '國稅 {national} · 地方稅 {local}',
+                withheld: '預扣稅 (3.3%)',
+                taxGap: '額外繳納 {amount}',
+                taxRefund: '預計退稅 {amount}',
+                netHourly: '稅後時薪',
+                grossHourly: '稅前時薪 {amount}',
+                savings: '儲蓄',
+                savingsShare: '淨收入的 {percent}%',
+                chartTitle: '收入 · 稅收 · 儲蓄比例',
+                chartLabel: 'CHART.JS',
+                tax: '稅收',
+                savingsChart: '儲蓄',
+                spendable: '可支配收入',
+                chartNote: '比例基於稅後收入。可支配收入大於0時顯示。',
+                aboutLink: '服務介紹',
+                privacyLink: '隱私政策',
+                termsLink: '服務條款',
+                copyright: '© 2026 Antigravity Labs. Freelance Value Optimizer v1.0',
+                resultRate: '{rate}',
+                resultAnnual: '目標收入: {amount}',
+                resultNet: '淨收入: {amount}'
+            },
+            'ja': {
+                title: 'Freelance Value Optimizer',
+                subtitle: '韓国の税率を反映した<strong>税引後時給</strong>を計算し、為替換算とビジュアルダッシュボードを提供。',
+                modeSimple: '⚡ シンプルモード',
+                modeDetail: '⚙️ 詳細モード',
+                currencyLabel: '表示通貨',
+                targetSalary: '目標年収（税引前）',
+                krwUsdRate: 'KRW/USD 為替レート',
+                annualFxRate: '年間適用レート',
+                monthlySavings: '月間貯蓄目標',
+                annualExpenses: '年間事業費',
+                annualWorkHours: '年間労働時間',
+                inflationRate: 'インフレ調整',
+                calculateBtn: '私の価値を計算',
+                disclaimer: '入力は韓国ウォン基準です。通貨切替で表示を変更できます。',
+                dashboardTitle: '税引後収入ダッシュボード',
+                themeLabel: 'ミッドナイトネビュラ',
+                themeLabelLight: 'ウィンターエアロ',
+                taxPaid: '納税額',
+                nationalLocal: '国税 {national} · 地方税 {local}',
+                withheld: '源泉徴収 (3.3%)',
+                taxGap: '追加納付 {amount}',
+                taxRefund: '還付予定 {amount}',
+                netHourly: '税引後時給',
+                grossHourly: '税引前時給 {amount}',
+                savings: '貯蓄',
+                savingsShare: '純利益の {percent}%',
+                chartTitle: '収入 · 税金 · 貯蓄の内訳',
+                chartLabel: 'CHART.JS',
+                tax: '税金',
+                savingsChart: '貯蓄',
+                spendable: '可処分所得',
+                chartNote: '税引後収入に基づく比率。可処分所得が0以上の場合表示されます。',
+                aboutLink: 'サービス紹介',
+                privacyLink: 'プライバシーポリシー',
+                termsLink: '利用規約',
+                copyright: '© 2026 Antigravity Labs. Freelance Value Optimizer v1.0',
+                resultRate: '{rate}',
+                resultAnnual: '目標収入: {amount}',
+                resultNet: '純収入: {amount}'
+            }
+        };
+
+        let currentLang = localStorage.getItem('language') || 'ko';
+
+        function t(key, params = {}) {
+            let text = translations[currentLang][key] || translations['ko'][key] || key;
+            Object.keys(params).forEach(param => {
+                text = text.replace(`{${param}}`, params[param]);
+            });
+            return text;
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+            document.documentElement.lang = lang;
+            updateUI();
+            document.getElementById('lang-menu').classList.add('hidden');
+        }
+
+        function updateUI() {
+            // Update all translatable elements
+            document.querySelector('header h1 span').textContent = t('title');
+            document.querySelector('header p').innerHTML = t('subtitle');
+            // Add more UI updates as needed
+        }
+
+        // Language menu toggle
+        document.getElementById('lang-btn').addEventListener('click', () => {
+            document.getElementById('lang-menu').classList.toggle('hidden');
+        });
+
+        // Country menu toggle
+        document.getElementById('country-btn').addEventListener('click', () => {
+            document.getElementById('country-menu').classList.toggle('hidden');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const langBtn = document.getElementById('lang-btn');
+            const langMenu = document.getElementById('lang-menu');
+            const countryBtn = document.getElementById('country-btn');
+            const countryMenu = document.getElementById('country-menu');
+            
+            if (!langBtn.contains(e.target) && !langMenu.contains(e.target)) {
+                langMenu.classList.add('hidden');
+            }
+            if (!countryBtn.contains(e.target) && !countryMenu.contains(e.target)) {
+                countryMenu.classList.add('hidden');
+            }
+        });
+
+        let isSimpleMode = true;
+        let lastResult = null;
+        let ratioChart = null;
+
+        const modeBtn = document.getElementById('mode-toggle');
+        const detailFields = document.getElementById('detail-fields');
+        const modeLabel = document.getElementById('mode-label');
+        const currencyToggle = document.getElementById('currency-toggle');
+        const currencyLabel = document.getElementById('currency-label');
+        const fxRateInput = document.getElementById('fx-rate');
+        const inflationInput = document.getElementById('inflation');
+        const inflationLabel = document.getElementById('inflation-label');
+
+        const state = {
+            currency: 'KRW',
+            fxRate: parseFloat(fxRateInput.value) || 1320
+        };
+
+        // --- Theme Engine ---
+        function applyTheme(theme) {
+            const html = document.documentElement;
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            let targetTheme;
+            if (theme === 'system') {
+                targetTheme = systemPrefersDark ? 'dark' : 'light';
+            } else {
+                targetTheme = theme;
+            }
+            
+            // Set attribute for CSS variable switching
+            html.setAttribute('data-theme', targetTheme);
+            
+            // Sync Tailwind's dark class (if being used)
+            if (targetTheme === 'dark') {
+                html.classList.add('dark');
+            } else {
+                html.classList.remove('dark');
+            }
+            
+            localStorage.setItem('theme-preference', theme);
+            
+            // Update Dashboard Sub-label
+            const subLabel = document.getElementById('theme-sub-label');
+            if (subLabel) {
+                subLabel.innerText = targetTheme === 'dark' ? 'Midnight Nebula' : 'Winter Aero';
+            }
+            
+            if (lastResult) updateChart(lastResult);
+        }
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (localStorage.getItem('theme-preference') === 'system') {
+                applyTheme('system');
+            }
+        });
+
+        function setTheme(theme) {
+            applyTheme(theme);
+        }
+
+        // Initialize theme - check immediately on load
+        const initTheme = () => {
+            const savedTheme = localStorage.getItem('theme-preference') || 'system';
+            console.log('Initializing theme:', savedTheme);
+            console.log('Browser prefers dark:', window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            applyTheme(savedTheme);
+        };
+        
+        // Run immediately
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initTheme);
+        } else {
+            initTheme();
+        }
+        // --- End Theme Engine ---
+
+        modeBtn.addEventListener('click', () => {
+            isSimpleMode = !isSimpleMode;
+            if (isSimpleMode) {
+                detailFields.classList.add('hidden');
+                modeLabel.innerText = "⚡ 간편 모드 (Simple)";
+            } else {
+                detailFields.classList.remove('hidden');
+                modeLabel.innerText = "⚙️ 상세 모드 (Detail)";
+            }
+            updateShareLink();
+        });
+
+        currencyToggle.addEventListener('change', () => {
+            state.currency = currencyToggle.checked ? 'USD' : 'KRW';
+            currencyLabel.innerText = state.currency;
+            renderResult(lastResult);
+        });
+
+        fxRateInput.addEventListener('input', () => {
+            state.fxRate = Math.max(0.1, parseFloat(fxRateInput.value) || 0);
+            renderResult(lastResult);
+            updateShareLink();
+        });
+
+        inflationInput.addEventListener('input', () => {
+            inflationLabel.innerText = `${parseFloat(inflationInput.value).toFixed(1)}%`;
+        });
+
+        function formatCurrency(input) {
+            let value = input.value.replace(/,/g, '');
+            if (!isNaN(value) && value !== "") {
+                input.value = parseInt(value, 10).toLocaleString();
+            }
+        }
+
+        function getNumber(id) {
+            const val = document.getElementById(id).value.replace(/,/g, '');
+            return parseFloat(val) || 0;
+        }
+
+        function formatMoney(amountKRW) {
+            if (state.currency === 'USD') {
+                const usd = amountKRW / (state.fxRate || 1);
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    maximumFractionDigits: 2
+                }).format(usd);
+            }
+            return new Intl.NumberFormat('ko-KR', {
+                style: 'currency',
+                currency: 'KRW',
+                maximumFractionDigits: 0
+            }).format(amountKRW);
+        }
+
+        // === Multi-Country Tax System ===
+        let currentCountry = localStorage.getItem('tax-country') || 'KR';
+
+        const taxSystems = {
+            'KR': {
+                name: 'South Korea',
+                currency: 'KRW',
+                withholdingRate: 0.033,
+                localTaxRate: 0.1,
+                brackets: [
+                    { lower: 0, upper: 14000000, rate: 0.06, base: 0 },
+                    { lower: 14000000, upper: 50000000, rate: 0.15, base: 840000 },
+                    { lower: 50000000, upper: 88000000, rate: 0.24, base: 6240000 },
+                    { lower: 88000000, upper: 150000000, rate: 0.35, base: 15360000 },
+                    { lower: 150000000, upper: 300000000, rate: 0.38, base: 37060000 },
+                    { lower: 300000000, upper: 500000000, rate: 0.40, base: 94060000 },
+                    { lower: 500000000, upper: 1000000000, rate: 0.42, base: 174060000 },
+                    { lower: 1000000000, upper: Infinity, rate: 0.45, base: 384060000 }
+                ]
+            },
+            'US': {
+                name: 'United States',
+                currency: 'USD',
+                withholdingRate: 0.15, // Self-employment estimated tax
+                localTaxRate: 0, // Varies by state, simplified here
+                selfEmploymentTax: 0.153, // Social Security + Medicare
+                brackets: [ // 2026 Federal tax brackets (Single filer, estimated)
+                    { lower: 0, upper: 11600, rate: 0.10, base: 0 },
+                    { lower: 11600, upper: 47150, rate: 0.12, base: 1160 },
+                    { lower: 47150, upper: 100525, rate: 0.22, base: 5426 },
+                    { lower: 100525, upper: 191950, rate: 0.24, base: 17168.50 },
+                    { lower: 191950, upper: 243725, rate: 0.32, base: 39110.50 },
+                    { lower: 243725, upper: 609350, rate: 0.35, base: 55678.50 },
+                    { lower: 609350, upper: Infinity, rate: 0.37, base: 183647.25 }
+                ]
+            },
+            'JP': {
+                name: 'Japan',
+                currency: 'JPY',
+                withholdingRate: 0.1021, // 10.21% withholding
+                localTaxRate: 0.1, // Resident tax (10% flat)
+                brackets: [ // 2026 National income tax
+                    { lower: 0, upper: 1950000, rate: 0.05, base: 0 },
+                    { lower: 1950000, upper: 3300000, rate: 0.10, base: 97500 },
+                    { lower: 3300000, upper: 6950000, rate: 0.20, base: 232500 },
+                    { lower: 6950000, upper: 9000000, rate: 0.23, base: 962500 },
+                    { lower: 9000000, upper: 18000000, rate: 0.33, base: 1434000 },
+                    { lower: 18000000, upper: 40000000, rate: 0.40, base: 4404000 },
+                    { lower: 40000000, upper: Infinity, rate: 0.45, base: 13204000 }
+                ]
+            },
+            'CN': {
+                name: 'China',
+                currency: 'CNY',
+                withholdingRate: 0, // No standard withholding for freelancers
+                localTaxRate: 0, // Included in national tax
+                brackets: [ // 2026 Individual income tax (comprehensive income)
+                    { lower: 0, upper: 36000, rate: 0.03, base: 0 },
+                    { lower: 36000, upper: 144000, rate: 0.10, base: 1080 },
+                    { lower: 144000, upper: 300000, rate: 0.20, base: 11880 },
+                    { lower: 300000, upper: 420000, rate: 0.25, base: 43080 },
+                    { lower: 420000, upper: 660000, rate: 0.30, base: 73080 },
+                    { lower: 660000, upper: 960000, rate: 0.35, base: 145080 },
+                    { lower: 960000, upper: Infinity, rate: 0.45, base: 250080 }
+                ]
+            },
+            'TW': {
+                name: 'Taiwan',
+                currency: 'TWD',
+                withholdingRate: 0, // Varies by profession
+                localTaxRate: 0, // No separate local tax
+                brackets: [ // 2026 Individual income tax
+                    { lower: 0, upper: 560000, rate: 0.05, base: 0 },
+                    { lower: 560000, upper: 1260000, rate: 0.12, base: 28000 },
+                    { lower: 1260000, upper: 2520000, rate: 0.20, base: 112000 },
+                    { lower: 2520000, upper: 4720000, rate: 0.30, base: 364000 },
+                    { lower: 4720000, upper: Infinity, rate: 0.40, base: 1024000 }
+                ]
+            }
+        };
+
+        function setCountry(country) {
+            currentCountry = country;
+            localStorage.setItem('tax-country', country);
+            document.getElementById('country-menu').classList.add('hidden');
+            // Recalculate if there's a result
+            if (lastResult) {
+                calculate();
+            }
+        }
+
+        function calcIncomeTax(taxableIncome) {
+            const system = taxSystems[currentCountry];
+            const bracket = system.brackets.find(b => taxableIncome <= b.upper) || system.brackets[system.brackets.length - 1];
+            const taxableOver = Math.max(0, taxableIncome - bracket.lower);
+            return bracket.base + taxableOver * bracket.rate;
+        }
+
+        function calculate() {
+            const salary = getNumber('salary');
+            const savings = getNumber('savings');
+            const expenses = getNumber('expenses');
+            const inflation = parseFloat(document.getElementById('inflation').value) || 0;
+            const hours = parseFloat(document.getElementById('hours').value) || 0;
+
+            if (salary === 0) {
+                alert("연 매출/연봉을 입력해주세요.");
+                return;
+            }
+            if (hours <= 0) {
+                alert("연간 작업 시간을 입력해주세요.");
+                return;
+            }
+
+            const annualSavings = savings * 12;
+            const adjustedAnnualTarget = isSimpleMode
+                ? salary * (1 + inflation / 100)
+                : (salary + annualSavings) * (1 + inflation / 100);
+
+            const taxableIncome = Math.max(0, adjustedAnnualTarget - expenses);
+            const system = taxSystems[currentCountry];
+            
+            // Calculate income tax based on selected country
+            const nationalTax = calcIncomeTax(taxableIncome);
+            const localTax = nationalTax * system.localTaxRate;
+            
+            // Add self-employment tax for US
+            const selfEmploymentTax = (currentCountry === 'US') 
+                ? adjustedAnnualTarget * (system.selfEmploymentTax || 0) 
+                : 0;
+            
+            const totalTax = nationalTax + localTax + selfEmploymentTax;
+            const withheld = adjustedAnnualTarget * system.withholdingRate;
+            const taxGap = totalTax - withheld;
+            const netIncome = adjustedAnnualTarget - totalTax;
+
+            const hourlyRateGross = adjustedAnnualTarget / hours;
+            const hourlyRateNet = netIncome / hours;
+
+            lastResult = {
+                adjustedAnnualTarget,
+                annualSavings,
+                taxableIncome,
+                nationalTax,
+                localTax,
+                selfEmploymentTax,
+                totalTax,
+                withheld,
+                taxGap,
+                netIncome,
+                hourlyRateGross,
+                hourlyRateNet
+            };
+
+            document.getElementById('input-container').classList.add('hidden');
+            document.getElementById('result-view').classList.remove('hidden');
+
+            renderResult(lastResult);
+            updateShareLink();
+        }
+
+        function renderResult(result) {
+            if (!result) return;
+
+            const rateStr = formatMoney(result.hourlyRateGross);
+            const annualStr = formatMoney(result.adjustedAnnualTarget);
+            const netStr = formatMoney(result.netIncome);
+
+            document.getElementById('result-rate').innerText = rateStr;
+            document.getElementById('result-annual').innerText = `세전 목표 매출: ${annualStr}`;
+            document.getElementById('result-net').innerText = `세후 실수령: ${netStr}`;
+
+            document.getElementById('metric-tax').innerText = formatMoney(result.totalTax);
+            document.getElementById('metric-tax-detail').innerText = `국세 ${formatMoney(result.nationalTax)} · 지방세 ${formatMoney(result.localTax)}`;
+            document.getElementById('metric-withheld').innerText = formatMoney(result.withheld);
+
+            const gapLabel = result.taxGap >= 0
+                ? `추가 납부 ${formatMoney(result.taxGap)}`
+                : `환급 예상 ${formatMoney(Math.abs(result.taxGap))}`;
+            document.getElementById('metric-gap').innerText = gapLabel;
+
+            document.getElementById('metric-hourly-net').innerText = formatMoney(result.hourlyRateNet);
+            document.getElementById('metric-hourly-gross').innerText = `세전 시급 ${formatMoney(result.hourlyRateGross)}`;
+
+            document.getElementById('metric-savings').innerText = formatMoney(result.annualSavings);
+            const savingsShare = result.netIncome > 0 ? (result.annualSavings / result.netIncome) * 100 : 0;
+            document.getElementById('metric-savings-share').innerText = `순수익 대비 ${savingsShare.toFixed(1)}%`;
+
+            document.getElementById('cap-rate').innerText = rateStr;
+            document.getElementById('cap-annual').innerText = annualStr;
+
+            updateChart(result);
+        }
+
+        function updateChart(result) {
+            if (!result) return;
+            const savingsForChart = Math.min(result.annualSavings, result.netIncome);
+            const spendable = Math.max(0, result.netIncome - savingsForChart);
+            const total = result.netIncome + result.totalTax;
+
+            document.getElementById('ratio-tax').innerText = total > 0 ? `${((result.totalTax / total) * 100).toFixed(1)}%` : '0%';
+            document.getElementById('ratio-savings').innerText = total > 0 ? `${((savingsForChart / total) * 100).toFixed(1)}%` : '0%';
+            document.getElementById('ratio-spendable').innerText = total > 0 ? `${((spendable / total) * 100).toFixed(1)}%` : '0%';
+
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const colors = isDark 
+                ? ['#60a5fa', '#22d3ee', '#34d399'] 
+                : ['#3b82f6', '#06b6d4', '#10b981'];
+
+            const data = [result.totalTax, savingsForChart, spendable];
+            const config = {
+                type: 'doughnut',
+                data: {
+                    labels: ['Tax', 'Savings', 'Spendable'],
+                    datasets: [{
+                        data,
+                        backgroundColor: colors,
+                        borderWidth: 0,
+                        hoverOffset: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '68%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => `${ctx.label}: ${formatMoney(ctx.raw)}`
+                            }
+                        }
+                    }
+                }
+            };
+
+            if (ratioChart) {
+                ratioChart.data = config.data;
+                ratioChart.options = config.options;
+                ratioChart.update();
+            } else {
+                const ctx = document.getElementById('ratioChart');
+                ratioChart = new Chart(ctx, config);
+            }
+        }
+
+        function reset() {
+            document.getElementById('result-view').classList.add('hidden');
+            document.getElementById('input-container').classList.remove('hidden');
+        }
+
+        async function saveImage() {
+            const overlay = document.getElementById('capture-area');
+            const canvas = await html2canvas(overlay, {
+                backgroundColor: '#0f172a',
+                scale: 2
+            });
+            const link = document.createElement('a');
+            link.download = 'my-rate-2026.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        function buildShareUrl() {
+            const params = new URLSearchParams();
+            params.set('salary', getNumber('salary'));
+            params.set('savings', getNumber('savings'));
+            params.set('expenses', getNumber('expenses'));
+            params.set('hours', document.getElementById('hours').value || '');
+            params.set('inflation', document.getElementById('inflation').value || '');
+            params.set('mode', isSimpleMode ? 'simple' : 'detail');
+            params.set('currency', state.currency);
+            params.set('fx', state.fxRate);
+            params.set('auto', '1');
+
+            const base = window.location.href.split('?')[0];
+            return `${base}?${params.toString()}`;
+        }
+
+        function updateShareLink() {
+            const url = buildShareUrl();
+            window.history.replaceState({}, '', url);
+        }
+
+        async function copyLink() {
+            const url = buildShareUrl();
+            try {
+                await navigator.clipboard.writeText(url);
+                alert('링크가 복사되었습니다.');
+            } catch (err) {
+                prompt('복사 실패. 아래 링크를 복사하세요.', url);
+            }
+        }
+
+        function applyParams() {
+            const params = new URLSearchParams(window.location.search);
+            if (!params.toString()) return;
+
+            const salary = params.get('salary');
+            const savings = params.get('savings');
+            const expenses = params.get('expenses');
+            const hours = params.get('hours');
+            const inflation = params.get('inflation');
+            const mode = params.get('mode');
+            const currency = params.get('currency');
+            const fx = params.get('fx');
+
+            if (salary) document.getElementById('salary').value = Number(salary).toLocaleString();
+            if (savings) document.getElementById('savings').value = Number(savings).toLocaleString();
+            if (expenses) document.getElementById('expenses').value = Number(expenses).toLocaleString();
+            if (hours) document.getElementById('hours').value = hours;
+            if (inflation) {
+                document.getElementById('inflation').value = inflation;
+                inflationLabel.innerText = `${parseFloat(inflation).toFixed(1)}%`;
+            }
+
+            if (mode === 'detail') {
+                isSimpleMode = false;
+                detailFields.classList.remove('hidden');
+                modeLabel.innerText = "⚙️ 상세 모드 (Detail)";
+            }
+
+            if (currency === 'USD') {
+                currencyToggle.checked = true;
+                state.currency = 'USD';
+                currencyLabel.innerText = 'USD';
+            }
+            if (fx) {
+                fxRateInput.value = fx;
+                state.fxRate = parseFloat(fx) || state.fxRate;
+            }
+
+            if (params.get('auto') === '1' && salary) {
+                calculate();
+            }
+        }
+
+        applyParams();
+        
+        // === AI Chatbot Functions ===
+        // The API key is now securely stored in Cloudflare Pages environment variables!
+        
+        function toggleAIChatbot() {
+            const modal = document.getElementById('ai-chatbot-modal');
+            modal.classList.toggle('hidden');
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message to chat
+            addMessageToChat(message, 'user');
+            input.value = '';
+            
+            // Show loading
+            const loadingId = addMessageToChat('💭 생각중...', 'ai');
+            
+            try {
+                // Call our secure Cloudflare Function
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        country: taxSystems[currentCountry].name,
+                        currency: taxSystems[currentCountry].currency
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Server returned ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Remove loading message
+                document.getElementById(loadingId).remove();
+                
+                if (data.candidates && data.candidates[0]) {
+                    const aiResponse = data.candidates[0].content.parts[0].text;
+                    addMessageToChat(aiResponse, 'ai');
+                } else if (data.error) {
+                     addMessageToChat(`죄송합니다. 서버 설정 오류입니다: ${data.error}`, 'ai');
+                } else {
+                    addMessageToChat('죄송합니다. 응답을 생성할 수 없습니다. 다시 시도해주세요.', 'ai');
+                }
+                
+            } catch (error) {
+                console.error('API Error:', error);
+                document.getElementById(loadingId).remove();
+                addMessageToChat(
+                    '❌ 오류가 발생했습니다.\n\n' +
+                    '잠시 후 다시 시도해주세요.\n' +
+                    `(에러: ${error.message})`,
+                    'ai'
+                );
+            }
+        }
+        
+        function addMessageToChat(message, sender) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageId = 'msg-' + Date.now();
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.id = messageId;
+            messageDiv.className = 'flex gap-3 animate-fadeIn';
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="flex-1"></div>
+                    <div class="glass-panel rounded-2xl rounded-tr-none p-4 max-w-[80%] bg-gradient-to-r from-sky-500/20 to-indigo-500/20">
+                        <p class="text-sm whitespace-pre-wrap">${escapeHtml(message)}</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center flex-shrink-0">
+                        👤
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center flex-shrink-0">
+                        🤖
+                    </div>
+                    <div class="glass-panel rounded-2xl rounded-tl-none p-4 flex-1">
+                        <p class="text-sm whitespace-pre-wrap">${escapeHtml(message)}</p>
+                    </div>
+                `;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            return messageId;
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Initialize language
+        updateUI();
+    </script>
+</body>
+</html>

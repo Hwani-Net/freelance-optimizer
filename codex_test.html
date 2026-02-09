@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neon Digital Clock</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --neon: #56f7ff;
+      --bg: #0b0f14;
+    }
+    body {
+      background: radial-gradient(1200px 800px at 50% -10%, #141b26 0%, var(--bg) 55%, #07090c 100%);
+    }
+    .neon {
+      color: var(--neon);
+      text-shadow:
+        0 0 6px rgba(86, 247, 255, 0.6),
+        0 0 14px rgba(86, 247, 255, 0.45),
+        0 0 28px rgba(86, 247, 255, 0.25);
+      letter-spacing: 0.08em;
+    }
+    .frame {
+      border: 1px solid rgba(86, 247, 255, 0.18);
+      box-shadow:
+        inset 0 0 18px rgba(86, 247, 255, 0.12),
+        0 0 24px rgba(86, 247, 255, 0.12);
+      backdrop-filter: blur(6px);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+  <div class="frame px-8 py-6 rounded-2xl">
+    <div id="clock" class="neon font-mono text-5xl sm:text-6xl md:text-7xl">00:00:00</div>
+  </div>
+
+  <script>
+    const el = document.getElementById('clock');
+
+    function pad(n) {
+      return String(n).padStart(2, '0');
+    }
+
+    function tick() {
+      const d = new Date();
+      const hh = pad(d.getHours());
+      const mm = pad(d.getMinutes());
+      const ss = pad(d.getSeconds());
+      el.textContent = `${hh}:${mm}:${ss}`;
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>

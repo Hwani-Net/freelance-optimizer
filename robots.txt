@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tranquil-sopapillas-2af29d.netlify.app/sitemap.xml
