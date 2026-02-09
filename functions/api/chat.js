@@ -10,7 +10,7 @@ export async function onRequest(context) {
   const { message, country, currency } = requestBody;
 
   // 2. Get API Key from Environment Variable (Securely stored in Cloudflare)
-  const apiKey = context.env.GEMINI_API_KEY;
+  const apiKey = context?.env?.GEMINI_API_KEY;
 
   if (!apiKey) {
     return new Response(JSON.stringify({ error: 'API Key not configured on server' }), {
@@ -29,6 +29,7 @@ export async function onRequest(context) {
 답변은 친근하고 간결하게 작성해주세요.`;
 
   // 4. Call Gemini API
+  // Fallback to 'gemini-pro' for maximum compatibility deeply with free keys
   const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
   
   try {
@@ -36,17 +37,26 @@ export async function onRequest(context) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        contents: [{
+        contents: [
+          {
+            role: "user",
             parts: [{ text: prompt }]
-        }],
+          }
+        ],
         generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 500,
+          temperature: 0.7,
+          maxOutputTokens: 500
         }
       })
     });
 
     const data = await response.json();
+    if (!response.ok) {
+      return new Response(JSON.stringify({ error: data?.error || data }), {
+        status: response.status,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
     return new Response(JSON.stringify(data), {
       headers: { 'Content-Type': 'application/json' }
     });
