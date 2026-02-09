@@ -208,9 +208,7 @@
                         내 가치 계산하기 (Calculate)
                     </button>
 
-                    <button id="ai-chatbot-btn" onclick="toggleAIChatbot()" class="btn-primary w-full p-5 rounded-xl font-bold text-lg shadow-lg mt-2">
-                        인공지능에게 물어보기
-                    </button>
+
 
                     <p class="text-[10px] text-slate-500 leading-relaxed">
                         입력은 KRW 기준입니다. 환율 토글은 결과 표시 통화만 변경합니다.
@@ -362,6 +360,14 @@
                 </div>
             </div>
         </div>
+
+        <!-- Floating AI Chatbot Button -->
+        <button id="ai-chatbot-btn" onclick="toggleAIChatbot()" class="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-br from-sky-400 to-indigo-600 rounded-full shadow-2xl flex items-center justify-center text-3xl hover:scale-110 active:scale-95 transition-all z-[90] group">
+            🤖
+            <span class="absolute right-full mr-4 px-3 py-1 bg-slate-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                AI 시급 상담소
+            </span>
+        </button>
 
         <footer class="mt-12 text-center opacity-70">
             <!-- Buy Me a Coffee Button (Temporarily disabled for AdSense Approval)
@@ -1179,10 +1185,10 @@
                 if (data.candidates && data.candidates[0]) {
                     const aiResponse = data.candidates[0].content.parts[0].text;
                     addMessageToChat(aiResponse, 'ai');
-                } else if (data.error) {
-                     // Google often returns an error object { code, message, ... }
-                     const errorMessage = data.error.message || JSON.stringify(data.error);
-                     addMessageToChat(`죄송합니다. 서버 응답 오류입니다:\n${errorMessage}`, 'ai');
+                } else if (data.error || data.message) {
+                     // Updated error extraction for our robust API
+                     const errorMessage = data.message || data.error?.message || JSON.stringify(data.error);
+                     addMessageToChat(`❌ 오류가 발생했습니다.\n\n${errorMessage}`, 'ai');
                 } else {
                     addMessageToChat('죄송합니다. 응답을 생성할 수 없습니다. 다시 시도해주세요.', 'ai');
                 }
