@@ -45,8 +45,8 @@ export async function onRequest(context) {
   2. 2026년 기준 인플레이션과 시장 트렌드를 반영하세요.
   3. 구체적인 시급 범위와 그 이유를 전문가답게 조언해주세요.`;
 
-  // 5. Call Gemini API (Try v1beta if v1 fails, but stick to v1 for now)
-  const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  // 5. Call Gemini API (Use v1beta and the latest available model gemini-2.5-flash)
+  const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
   
   try {
     const apiResponse = await fetch(geminiUrl, {

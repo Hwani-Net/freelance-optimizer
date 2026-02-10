@@ -1232,15 +1232,15 @@
                     })
                 });
                 
+                const data = await response.json();
+                
                 if (!response.ok) {
-                    let errorMsg = `Server returned ${response.status}`;
+                    let errorMsg = data.error?.message || data.message || `Server returned ${response.status}`;
                     if (response.status === 501) {
-                        errorMsg = "로컬 서버(python -m http.server)는 API 기능을 지원하지 않습니다. 배포 후 테스트하거나 'npx wrangler pages dev'를 사용하세요.";
+                        errorMsg = "로컬 서버는 API 기능을 지원하지 않습니다. 배포 후 테스트하세요.";
                     }
                     throw new Error(errorMsg);
                 }
-                
-                const data = await response.json();
                 
                 // Remove loading message
                 document.getElementById(loadingId).remove();
