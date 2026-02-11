@@ -173,12 +173,10 @@
                     <div class="flex items-center gap-3">
                         <span class="text-[10px] text-slate-400 uppercase tracking-widest">표시 통화</span>
                         <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="currency-toggle" class="toggle-checkbox sr-only">
-                            <span class="toggle-track w-10 h-5 rounded-full flex items-center px-0.5 transition-colors">
-                                <span class="toggle-knob w-4 h-4 rounded-full transition-transform"></span>
-                            </span>
+                            <input type="checkbox" id="currency-toggle" class="sr-only peer">
+                            <div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-sky-500"></div>
+                            <span id="currency-label" class="text-xs font-black ml-2" style="color: var(--text-main)">KRW</span>
                         </label>
-                        <span id="currency-label" class="text-xs font-black" style="color: var(--text-main)">KRW</span>
                     </div>
                 </div>
 
@@ -186,7 +184,7 @@
                     <div>
                         <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">현재 연 매출/연봉 (세전)</label>
                         <div class="relative">
-                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">₩</span>
+                            <span id="salary-symbol" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">₩</span>
                             <input type="text" id="salary" class="input-field w-full p-4 pl-10 rounded-xl text-xl font-black" placeholder="예: 50,000,000" onkeyup="formatCurrency(this)">
                         </div>
                     </div>
@@ -234,14 +232,17 @@
                 </div>
 
                 <div id="result-view" class="hidden text-center py-2">
-                    <div class="mb-6">
-                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Recommended Hourly Rate</p>
-                        <h2 class="text-6xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter" id="result-rate">0원</h2>
-                        <p class="text-lg text-emerald-600 dark:text-emerald-500 mt-2 font-black" id="result-annual">세전 목표 매출: 0원</p>
-                        <p class="text-sm text-slate-500 mt-1 font-bold" id="result-net">세후 실수령: 0원</p>
+                    <div class="glass-panel rounded-3xl p-8 mb-8 border border-white/20 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <i class="fas fa-coins text-6xl"></i>
                     </div>
-
-                    <div class="grid grid-cols-3 gap-3 mb-6">
+                    <p class="text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest text-xs mb-2">희망 세후 시급 (Target Net Hourly)</p>
+                    <h2 class="text-6xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter" id="result-rate">0</h2>
+                    <div class="mt-6 flex flex-col gap-2">
+                        <p class="text-lg font-bold text-slate-600 dark:text-slate-300" id="result-annual">세전 목표 매출: 0</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400" id="result-net">세후 실수령: 0</p>
+                    </div>
+                </div>      <div class="grid grid-cols-3 gap-3 mb-6">
                         <button onclick="saveImage()" class="p-3 rounded-lg bg-white border border-slate-200 dark:border-none dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold transition-colors shadow-sm dark:shadow-none">
                             📸 이미지 저장
                         </button>
@@ -750,7 +751,7 @@
         const inflationLabel = document.getElementById('inflation-label');
 
         const state = {
-            currency: 'KRW',
+            displayMode: 'local', // 'local' or 'usd'
             fxRate: parseFloat(fxRateInput.value) || 1320
         };
 
@@ -826,9 +827,14 @@
         });
 
         currencyToggle.addEventListener('change', () => {
-            state.currency = currencyToggle.checked ? 'USD' : 'KRW';
-            currencyLabel.innerText = state.currency;
-            renderResult(lastResult);
+            state.displayMode = currencyToggle.checked ? 'usd' : 'local';
+            // Update label to show current selection context
+            if (state.displayMode === 'usd') {
+                currencyLabel.innerText = 'USD';
+            } else {
+                currencyLabel.innerText = taxSystems[currentCountry].currency;
+            }
+            if (lastResult) renderResult(lastResult);
         });
 
         fxRateInput.addEventListener('input', () => {
@@ -853,46 +859,27 @@
             return parseFloat(val) || 0;
         }
 
-        function formatMoney(amountKRW) {
-            // If toggle is checked (USD mode forced)
-            if (state.currency === 'USD' && currentCountry !== 'US') {
-                // If current country is NOT US, but we want USD display, we need KRW->USD rate.
-                // Assuming state.fxRate is holding the "Local to KRW" rate.
-                // This is getting complicated. Let's simplify:
-                // If Toggle is ON => Show USD (Global Standard)
-                // If Toggle is OFF => Show Local Currency (KRW, JPY, CNY...)
-                
-                // For simplicity, let's assume if user explicitly toggles currency, they want USD.
-                // But we need a KRW->USD rate. 
-                // Let's use a fixed rate for USD conversion if we are not in US/KR context, or minimal logic.
-                // Actually, let's keep it simple: The toggle switches between "Local Currency" and "KRW" for foreigners?
-                // No, the UI says "KRW/USD". Let's respect the User's choice.
-                
-                // Existing logic assumed fxRate was always KRW/USD.
-                // New logic: fxRate is "KRW / Local Unit".
-                
-                // Let's stick to the user request: "Show the country's currency".
+        function formatMoney(amount, countryCode = currentCountry) {
+            const system = taxSystems[countryCode] || taxSystems['KR'];
+            
+            // If Global USD mode is active and we are NOT in US system already
+            if (state.displayMode === 'usd' && system.currency !== 'USD') {
+                // Convert Local to KRW then to USD
+                const amountKRW = (countryCode === 'KR') ? amount : amount * (state.fxRate || 1);
+                const amountUSD = amountKRW / 1380; // Standard cross-rate
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    maximumFractionDigits: 0
+                }).format(amountUSD);
             }
 
-            const system = taxSystems[currentCountry];
-            const fx = (currentCountry === 'KR') ? 1 : (state.fxRate || 1);
-            
-            // If state.currency is USD(from toggle), force USD display
-            if (state.currency === 'USD') {
-                 // For now, let's just allow the toggle to force USD if the user wants check vs global.
-                 // We need a KRW->USD rate. If current is KR, fx is 1. If current is US, fx is 1380.
-                 // Use hardcoded fallback for KRW->USD if we are in other currencies?
-                 // Let's just focus on the main issue: Local Currency Display.
-            }
-
-            // Correct Logic: Display in Local Currency based on currentCountry
-            const amountLocal = amountKRW / fx;
-            
+            // Normal Local Display
             return new Intl.NumberFormat(system.locale, {
                 style: 'currency',
                 currency: system.currency,
-                maximumFractionDigits: 0
-            }).format(amountLocal);
+                maximumFractionDigits: (system.currency === 'JPY' || system.currency === 'KRW') ? 0 : 2
+            }).format(amount);
         }
 
         // === Multi-Country Tax System ===
@@ -903,7 +890,8 @@
                 name: 'South Korea',
                 currency: 'KRW',
                 locale: 'ko-KR',
-                defaultFx: 1, // 1 KRW = 1 KRW
+                symbol: '₩',
+                defaultFx: 1,
                 withholdingRate: 0.033,
                 localTaxRate: 0.1,
                 brackets: [
@@ -921,7 +909,8 @@
                 name: 'United States',
                 currency: 'USD',
                 locale: 'en-US',
-                defaultFx: 1380, // 1 USD = 1380 KRW
+                symbol: '$',
+                defaultFx: 1380,
                 withholdingRate: 0.15,
                 localTaxRate: 0,
                 selfEmploymentTax: 0.153,
@@ -939,7 +928,8 @@
                 name: 'Japan',
                 currency: 'JPY',
                 locale: 'ja-JP',
-                defaultFx: 9, // 1 JPY = 9 KRW
+                symbol: '¥',
+                defaultFx: 9,
                 withholdingRate: 0.1021,
                 localTaxRate: 0.1,
                 brackets: [
@@ -956,7 +946,8 @@
                 name: 'China',
                 currency: 'CNY',
                 locale: 'zh-CN',
-                defaultFx: 190, // 1 CNY = 190 KRW
+                symbol: '¥',
+                defaultFx: 190,
                 withholdingRate: 0,
                 localTaxRate: 0,
                 brackets: [
@@ -973,7 +964,8 @@
                 name: 'Taiwan',
                 currency: 'TWD',
                 locale: 'zh-TW',
-                defaultFx: 42, // 1 TWD = 42 KRW
+                symbol: '$',
+                defaultFx: 42,
                 withholdingRate: 0,
                 localTaxRate: 0,
                 brackets: [
@@ -988,7 +980,8 @@
                 name: 'United Kingdom',
                 currency: 'GBP',
                 locale: 'en-GB',
-                defaultFx: 1750, // 1 GBP = 1750 KRW
+                symbol: '£',
+                defaultFx: 1750,
                 withholdingRate: 0,
                 localTaxRate: 0,
                 brackets: [
@@ -1002,7 +995,8 @@
                 name: 'Canada',
                 currency: 'CAD',
                 locale: 'en-CA',
-                defaultFx: 1000, // 1 CAD = 1000 KRW
+                symbol: '$',
+                defaultFx: 1000,
                 withholdingRate: 0,
                 localTaxRate: 0.1,
                 brackets: [
@@ -1017,7 +1011,8 @@
                 name: 'Germany',
                 currency: 'EUR',
                 locale: 'de-DE',
-                defaultFx: 1500, // 1 EUR = 1500 KRW
+                symbol: '€',
+                defaultFx: 1500,
                 withholdingRate: 0,
                 localTaxRate: 0.055,
                 brackets: [
@@ -1034,20 +1029,28 @@
             localStorage.setItem('tax-country', country);
             document.getElementById('country-menu').classList.add('hidden');
             
-            // Auto-update FX Rate based on selected country
             const system = taxSystems[country];
-            if (system && system.defaultFx) {
+            if (system) {
                 fxRateInput.value = system.defaultFx;
                 state.fxRate = system.defaultFx;
                 
-                // Update UI Labels
-                const currencyName = system.currency;
-                document.querySelector('label[for="fx-rate"]').innerText = `KRW/${currencyName} 환율`;
-                document.getElementById('currency-label').innerText = currencyName;
-                state.currency = currencyName; // Sync state currency
+                document.getElementById('salary-symbol').innerText = system.symbol;
+                document.querySelector('label[for="fx-rate"]').innerText = `KRW/${system.currency} 환율`;
+                
+                // Update toggle context
+                if (state.displayMode === 'local') {
+                    currencyLabel.innerText = system.currency;
+                } else {
+                    currencyLabel.innerText = 'USD';
+                }
+
+                if(country === 'KR') {
+                    document.getElementById('salary').placeholder = "예: 50,000,000";
+                } else {
+                    document.getElementById('salary').placeholder = `e.g. ${system.symbol}50,000`;
+                }
             }
             
-            // Recalculate if there's a result
             if (lastResult) {
                 calculate();
             }
@@ -1068,7 +1071,7 @@
             const hours = parseFloat(document.getElementById('hours').value) || 0;
 
             if (salary === 0) {
-                alert("연 매출/연봉을 입력해주세요.");
+                alert("금액을 입력해주세요. (Please enter an amount)");
                 return;
             }
             if (hours <= 0) {
@@ -1076,36 +1079,24 @@
                 return;
             }
 
+            const system = taxSystems[currentCountry];
+            
+            // Logic: All inputs are treated as LOCAL currency since we updated the UI symbol
             const annualSavings = savings * 12;
             const adjustedAnnualTarget = isSimpleMode
                 ? salary * (1 + inflation / 100)
                 : (salary + annualSavings) * (1 + inflation / 100);
 
-            const taxableIncomeKRW = Math.max(0, adjustedAnnualTarget - expenses);
-            const system = taxSystems[currentCountry];
-            
-            // FX Conversion for accurate tax bracket comparison
-            const fx = (currentCountry === 'KR') ? 1 : (state.fxRate || 1320);
-            const taxableIncomeLocal = taxableIncomeKRW / fx;
-            
-            // Calculate income tax in local currency
-            const nationalTaxLocal = calcIncomeTax(taxableIncomeLocal);
-            const localTaxLocal = nationalTaxLocal * system.localTaxRate;
-            
-            // Add self-employment tax for US (calculated in local USD then back to KRW)
-            const selfEmploymentTaxLocal = (currentCountry === 'US') 
-                ? (adjustedAnnualTarget / fx) * (system.selfEmploymentTax || 0) 
-                : 0;
-            
-            // Convert all taxes back to KRW for internal consistency
-            const nationalTax = nationalTaxLocal * fx;
-            const localTax = localTaxLocal * fx;
-            const selfEmploymentTax = selfEmploymentTaxLocal * fx;
+            // Calculate taxes natively in local currency
+            const taxableIncome = Math.max(0, adjustedAnnualTarget - expenses);
+            const nationalTax = calcIncomeTax(taxableIncome);
+            const localTax = nationalTax * system.localTaxRate;
+            const selfEmploymentTax = (currentCountry === 'US') ? adjustedAnnualTarget * system.selfEmploymentTax : 0;
             
             const totalTax = nationalTax + localTax + selfEmploymentTax;
+            const netIncome = adjustedAnnualTarget - totalTax;
             const withheld = adjustedAnnualTarget * system.withholdingRate;
             const taxGap = totalTax - withheld;
-            const netIncome = adjustedAnnualTarget - totalTax;
 
             const hourlyRateGross = adjustedAnnualTarget / hours;
             const hourlyRateNet = netIncome / hours;
@@ -1140,8 +1131,8 @@
             const netStr = formatMoney(result.netIncome);
 
             document.getElementById('result-rate').innerText = rateStr;
-            document.getElementById('result-annual').innerText = `세전 목표 매출: ${annualStr}`;
-            document.getElementById('result-net').innerText = `세후 실수령: ${netStr}`;
+            document.getElementById('result-annual').innerText = `${t('resultAnnual', {amount: annualStr})}`;
+            document.getElementById('result-net').innerText = `${t('resultNet', {amount: netStr})}`;
 
             document.getElementById('metric-tax').innerText = formatMoney(result.totalTax);
             document.getElementById('metric-tax-detail').innerText = `국세 ${formatMoney(result.nationalTax)} · 지방세 ${formatMoney(result.localTax)}`;
