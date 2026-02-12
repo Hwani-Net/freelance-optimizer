@@ -240,8 +240,17 @@
                         </div>
                     </div>
 
-                    <button onclick="calculate()" id="calculate-btn" class="btn-primary w-full p-5 rounded-xl font-bold text-lg text-white shadow-lg mt-2">
+                    <button onclick="calculate()" id="calculate-btn" class="btn-primary w-full p-5 rounded-xl font-bold text-lg text-white shadow-lg mt-2 mb-4">
                         내 가치 계산하기 (Calculate)
+                    </button>
+                    
+                    <!-- Integrated AI Chatbot Button -->
+                    <button onclick="toggleAIChatbot()" class="w-full p-4 rounded-xl bg-gradient-to-r from-sky-100 to-indigo-100 dark:from-sky-900/40 dark:to-indigo-900/40 border border-sky-200 dark:border-sky-700/50 flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform group">
+                        <span class="text-2xl group-hover:rotate-12 transition-transform">🤖</span>
+                        <div class="text-left">
+                            <p class="text-xs font-bold text-indigo-600 dark:text-indigo-300">AI 시급 상담소</p>
+                            <p class="text-[10px] text-slate-500 dark:text-slate-400">내 시급 분석 & 협상 전략 물어보기</p>
+                        </div>
                     </button>
 
 
@@ -457,13 +466,7 @@
             </div>
         </div>
 
-        <!-- Floating AI Chatbot Button -->
-        <button id="ai-chatbot-btn" onclick="toggleAIChatbot()" class="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-br from-sky-400 to-indigo-600 rounded-full shadow-2xl flex items-center justify-center text-3xl hover:scale-110 active:scale-95 transition-all z-[90] group">
-            🤖
-            <span class="absolute right-full mr-4 px-3 py-1 bg-slate-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                AI 시급 상담소
-            </span>
-        </button>
+
 
             <!-- Buy Me a Coffee Button (Temporarily hidden for AdSense)
             <div class="mb-6 flex justify-center">
@@ -1523,23 +1526,13 @@
                 `;
                 document.body.appendChild(banner);
 
-                // Adjust Chatbot Button Position
-                const chatbotBtn = document.getElementById('ai-chatbot-btn');
-                if (chatbotBtn) {
-                    chatbotBtn.style.transition = 'bottom 0.5s ease';
-                    chatbotBtn.style.bottom = '180px'; // Move up to avoid banner
-                }
+                // Adjust Chatbot Button Position - REMOVED (Button is now static)
+
 
                 // Handle Acceptance
                 document.getElementById('fvo-notice-ack').addEventListener('click', () => {
                     localStorage.setItem(consentKey, 'true');
                     banner.classList.add('translate-y-full');
-                    
-                    // Restore Chatbot Button Position
-                    if (chatbotBtn) {
-                        chatbotBtn.style.bottom = ''; // Revert to CSS default (bottom-8)
-                    }
-                    
                     setTimeout(() => banner.remove(), 500);
                 });
                 
