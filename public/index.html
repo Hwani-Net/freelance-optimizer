@@ -36,6 +36,36 @@
             }
         }
     </script>
+    <script>
+        // --- Theme Initialization (Blocking Script to Prevent Flash) ---
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('theme-preference');
+                const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                
+                let themeToApply = 'light'; // Default fallback
+                
+                if (savedTheme === 'dark') {
+                    themeToApply = 'dark';
+                } else if (savedTheme === 'light') {
+                    themeToApply = 'light';
+                } else {
+                    // System or not set
+                    themeToApply = systemDark ? 'dark' : 'light';
+                }
+
+                if (themeToApply === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } catch (e) {
+                console.error('Theme initialization failed', e);
+            }
+        })();
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Growth Hacker: Analytics & SEO -->
@@ -1174,33 +1204,6 @@
             }
         };
 
-
-        function setTheme(theme) {
-            if (theme === 'system') {
-                localStorage.removeItem('theme');
-                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.documentElement.classList.add('dark');
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    document.documentElement.setAttribute('data-theme', 'light');
-                }
-            } else {
-                localStorage.setItem('theme', theme);
-                if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    document.documentElement.setAttribute('data-theme', 'light');
-                }
-            }
-            // Update chart colors if exists
-            if (typeof updateChart === 'function' && lastResult) {
-                updateChart(lastResult);
-            }
-        }
-
         function setCountry(country) {
             currentCountry = country;
             localStorage.setItem('tax-country', country);
@@ -1514,14 +1517,6 @@
             }
         }
         
-        // Initialize Theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            setTheme(savedTheme);
-        } else {
-            setTheme('system');
-        }
-
         // Initialize UI with saved country or default
         setCountry(currentCountry);
 
