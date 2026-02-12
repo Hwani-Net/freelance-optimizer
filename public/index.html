@@ -1174,6 +1174,33 @@
             }
         };
 
+
+        function setTheme(theme) {
+            if (theme === 'system') {
+                localStorage.removeItem('theme');
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } else {
+                localStorage.setItem('theme', theme);
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            }
+            // Update chart colors if exists
+            if (typeof updateChart === 'function' && lastResult) {
+                updateChart(lastResult);
+            }
+        }
+
         function setCountry(country) {
             currentCountry = country;
             localStorage.setItem('tax-country', country);
@@ -1487,6 +1514,14 @@
             }
         }
         
+        // Initialize Theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            setTheme('system');
+        }
+
         // Initialize UI with saved country or default
         setCountry(currentCountry);
 
