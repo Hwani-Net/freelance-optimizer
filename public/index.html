@@ -22,6 +22,20 @@
     <meta property="twitter:image" content="https://freelance-optimizer-clean-modern.pages.dev/og-image.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            850: '#1e293b', 
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Growth Hacker: Analytics & SEO -->
@@ -191,11 +205,11 @@
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">KRW/USD 환율</label>
+                            <label for="fx-rate" class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">KRW/USD 환율</label>
                             <input type="number" id="fx-rate" class="input-field w-full p-3 rounded-lg text-sm" value="1320" min="1" step="0.1">
                         </div>
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">연간 작업 시간</label>
+                            <label for="hours" class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">연간 작업 시간</label>
                             <input type="number" id="hours" class="input-field w-full p-3 rounded-lg text-sm" value="1600" placeholder="1600">
                         </div>
                     </div>
@@ -203,14 +217,14 @@
                     <div id="detail-fields" class="hidden space-y-6 pt-4 border-t border-slate-200 dark:border-slate-600/60">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">월 목표 저축액</label>
+                                <label for="savings" class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">월 목표 저축액</label>
                                 <div class="relative">
                                     <span id="savings-symbol" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-[10px] font-bold">₩</span>
                                     <input type="text" id="savings" class="input-field w-full p-2 pl-7 rounded-lg text-sm" placeholder="0" onkeyup="formatCurrency(this)">
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">연간 필요경비</label>
+                                <label for="expenses" class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">연간 필요경비</label>
                                 <div class="relative">
                                     <span id="expenses-symbol" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-[10px] font-bold">₩</span>
                                     <input type="text" id="expenses" class="input-field w-full p-2 pl-7 rounded-lg text-sm" placeholder="0" onkeyup="formatCurrency(this)">
@@ -226,7 +240,7 @@
                         </div>
                     </div>
 
-                    <button onclick="calculate()" class="btn-primary w-full p-5 rounded-xl font-bold text-lg text-white shadow-lg mt-2">
+                    <button onclick="calculate()" id="calculate-btn" class="btn-primary w-full p-5 rounded-xl font-bold text-lg text-white shadow-lg mt-2">
                         내 가치 계산하기 (Calculate)
                     </button>
 
@@ -243,7 +257,7 @@
                         <i class="fas fa-coins text-6xl"></i>
                     </div>
                     <p class="text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest text-xs mb-2">희망 세후 시급 (Target Net Hourly)</p>
-                    <h2 class="text-6xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter" id="result-rate">0</h2>
+                    <h2 class="text-6xl md:text-7xl font-black text-sky-600 dark:text-sky-300 tracking-tighter" id="result-rate">0</h2>
                     <div class="mt-6 flex flex-col gap-2">
                         <p class="text-lg font-bold text-slate-600 dark:text-slate-300" id="result-annual">세전 목표 매출: 0</p>
                         <p class="text-sm text-slate-500 dark:text-slate-400" id="result-net">세후 실수령: 0</p>
@@ -269,28 +283,28 @@
             <section class="space-y-6">
                 <div class="glass-panel rounded-3xl p-6 md:p-8">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-bold">세후 수익 대시보드</h3>
+                        <h3 class="text-lg font-bold" id="dashboard-title-text">세후 수익 대시보드</h3>
                         <div class="text-[10px] text-slate-400 uppercase tracking-widest" id="theme-sub-label">Midnight Nebula</div>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4">
                         <div class="metric-card rounded-2xl p-4">
-                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">세금 합계</p>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest" id="metric-tax-label">세금 합계</p>
                             <p class="text-2xl font-bold mt-2" id="metric-tax">0</p>
                             <p class="text-[11px] text-slate-500 mt-1" id="metric-tax-detail">대기 중...</p>
                         </div>
                         <div class="metric-card rounded-2xl p-4">
-                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">원천징수(3.3%)</p>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest" id="metric-withheld-label">원천징수(3.3%)</p>
                             <p class="text-2xl font-bold mt-2" id="metric-withheld">0</p>
                             <p class="text-[11px] text-slate-500 mt-1" id="metric-gap">대기 중...</p>
                         </div>
                         <div class="metric-card rounded-2xl p-4">
-                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">세후 시급</p>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest" id="metric-hourly-net-label">세후 시급</p>
                             <p class="text-2xl font-bold mt-2" id="metric-hourly-net">0</p>
                             <p class="text-[11px] text-slate-500 mt-1" id="metric-hourly-gross">대기 중...</p>
                         </div>
                         <div class="metric-card rounded-2xl p-4">
-                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">목표 저축액(연)</p>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest" id="metric-savings-label">목표 저축액(연)</p>
                             <p class="text-2xl font-bold mt-2" id="metric-savings">0</p>
                             <p class="text-[11px] text-slate-500 mt-1" id="metric-savings-share">순수익 대비 0%</p>
                         </div>
@@ -299,7 +313,7 @@
 
                 <div class="glass-panel rounded-3xl p-6 md:p-8">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-bold">소득 · 세금 · 저축 비중</h3>
+                        <h3 class="text-lg font-bold" id="chart-title-text">소득 · 세금 · 저축 비중</h3>
                         <span class="text-[10px] text-slate-400 uppercase tracking-widest">Chart.js</span>
                     </div>
                     <div class="grid md:grid-cols-[220px_1fr] gap-6 items-center">
@@ -308,18 +322,18 @@
                         </div>
                         <div class="space-y-3 text-sm">
                             <div class="flex items-center justify-between">
-                                <span class="text-slate-600 dark:text-slate-300">세금</span>
+                                <span class="text-slate-600 dark:text-slate-300" id="ratio-tax-label">세금</span>
                                 <span class="font-semibold" id="ratio-tax">0%</span>
                             </div>
                             <div class="flex items-center justify-between">
-                                <span class="text-slate-600 dark:text-slate-300">저축</span>
+                                <span class="text-slate-600 dark:text-slate-300" id="ratio-savings-label">저축</span>
                                 <span class="font-semibold" id="ratio-savings">0%</span>
                             </div>
                             <div class="flex items-center justify-between">
-                                <span class="text-slate-600 dark:text-slate-300">가처분 소득</span>
+                                <span class="text-slate-600 dark:text-slate-300" id="ratio-spendable-label">가처분 소득</span>
                                 <span class="font-semibold" id="ratio-spendable">0%</span>
                             </div>
-                            <div class="text-[11px] text-slate-500">
+                            <div class="text-[11px] text-slate-500" id="chart-note-text">
                                 세후 기준 비중입니다. 저축액이 세후 수익을 초과하면 가처분 소득은 0으로 표시됩니다.
                             </div>
                         </div>
@@ -332,28 +346,28 @@
         <section class="mt-12 space-y-8">
             <div class="glass-panel rounded-3xl p-8 md:p-12 relative overflow-hidden">
                 <div class="absolute top-0 right-0 p-8 opacity-10 font-display text-6xl font-bold select-none pointer-events-none">GUIDE</div>
-                <h2 class="text-2xl md:text-3xl font-bold mb-8 flex items-center gap-3">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 flex items-center gap-3 text-slate-900 dark:text-white">
                     <span class="text-sky-500">📚</span> 2026 프리랜서 성공을 위한 경제 가이드
                 </h2>
 
                 <div class="grid md:grid-cols-2 gap-8 md:gap-12">
                     <article class="space-y-4">
-                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">1. 2026년 인플레이션과 프리랜서</h3>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100" id="guide-art-1-title">1. 2026년 인플레이션과 프리랜서</h3>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm" id="guide-art-1-p">
                             2026년은 생활비와 사업 운영비가 동시에 오르는 구간입니다. 프리랜서는 고정 급여가 없기 때문에 인플레이션이 곧바로 <strong class="text-sky-600 dark:text-sky-400">실질 소득의 하락</strong>으로 이어집니다.
                             프로젝트 단가가 정체된 상태에서 비용이 상승하면 순이익은 얇아집니다.
                         </p>
                         <div class="bg-indigo-50 dark:bg-indigo-900/30 p-4 rounded-xl border border-indigo-100 dark:border-indigo-500/30">
-                            <p class="text-xs font-bold text-indigo-800 dark:text-indigo-300 mb-1">💡 실무 팁</p>
-                            <p class="text-xs text-indigo-700 dark:text-indigo-400">
+                            <p class="text-xs font-bold text-indigo-800 dark:text-indigo-300 mb-1" id="guide-tip-label">💡 실무 팁</p>
+                            <p class="text-xs text-indigo-700 dark:text-indigo-200" id="guide-tip-p">
                                 분기 단위로 자신의 "생존 단가"를 재산정하고, 장기 계약 시 물가 조정 조건을 포함하세요.
                             </p>
                         </div>
                     </article>
 
                     <article class="space-y-4">
-                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">2. 가치 기반 가격 책정 (Value-based Pricing)</h3>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100" id="guide-art-2-title">2. 가치 기반 가격 책정 (Value-based Pricing)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm" id="guide-art-2-p">
                             시간당 요율이 아니라 <strong class="text-sky-600 dark:text-sky-400">고객이 얻는 결과</strong>를 기준으로 가격을 정하세요.
                             "랜딩페이지 제작" 대신 "전환율 20% 개선 솔루션"으로 제안해야 합니다.
                             최소·표준·프리미엄의 3단 패키지를 구성하여 고객이 '비용'이 아닌 '가치'를 비교하게 만드세요.
@@ -361,22 +375,22 @@
                     </article>
 
                     <article class="space-y-4">
-                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">3. 세금 및 자산 관리</h3>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100" id="guide-art-3-title">3. 세금 및 자산 관리</h3>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm" id="guide-art-3-p">
                             소득 변동성이 큰 프리랜서에게 세금은 비용이 아니라 리스크입니다. <strong class="text-sky-600 dark:text-sky-400">예상 세액 계좌</strong>를 만들어 수입의 20-30%를 미리 분리하세요.
                             단순 저축을 넘어, 자신의 전문성을 템플릿이나 교육으로 제품화하여 수익 파이프라인을 다각화하는 것이 최고의 자산 관리입니다.
                         </p>
-                        <a href="guide.html" class="inline-flex items-center gap-2 text-sky-500 hover:text-sky-400 text-sm font-bold mt-2 hover:underline">
+                        <a href="guide.html" class="inline-flex items-center gap-2 text-sky-500 hover:text-sky-400 text-sm font-bold mt-2 hover:underline" id="guide-link-text">
                             전체 가이드 읽기 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                         </a>
                     </article>
                     
                     <article class="space-y-4 flex flex-col justify-center">
                         <div class="bg-slate-900 dark:bg-black/40 rounded-2xl p-6 text-center border border-slate-800 dark:border-white/10">
-                            <p class="text-slate-400 text-xs uppercase tracking-widest mb-2">PRO TIP</p>
-                            <h3 class="text-lg font-bold text-white mb-2">내 시간의 가치는 얼마인가요?</h3>
-                            <p class="text-slate-400 text-xs mb-4">지금 바로 계산기로 확인해보세요.</p>
-                            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-white text-slate-900 px-6 py-2 rounded-full text-sm font-bold hover:scale-105 transition-transform">
+                            <p class="text-slate-400 text-xs uppercase tracking-widest mb-2" id="pro-tip-label">PRO TIP</p>
+                            <h3 class="text-lg font-bold text-white mb-2" id="pro-tip-title">내 시간의 가치는 얼마인가요?</h3>
+                            <p class="text-slate-400 text-xs mb-4" id="pro-tip-p">지금 바로 계산기로 확인해보세요.</p>
+                            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" id="pro-tip-btn" class="bg-white text-slate-900 px-6 py-2 rounded-full text-sm font-bold hover:scale-105 transition-transform">
                                 위로 이동하여 계산하기
                             </button>
                         </div>
@@ -500,7 +514,7 @@
                 annualWorkHours: '연간 근무 시간',
                 inflationRate: '인플레이션 반영',
                 calculateBtn: '내 가치 계산하기 (CALCULATE)',
-                disclaimer: '입력은 KRW 기준입니다. 환율 토글로 결과 표시 통화를 변경할 수 있습니다.',
+                disclaimer: '선택한 국가의 통화 기준으로 입력하세요. 환율은 세금 계산 및 달러 환산에 사용됩니다.',
                 dashboardTitle: '세후 수입 대시보드',
                 themeLabel: 'MIDNIGHT NEBULA',
                 themeLabelLight: 'WINTER AERO',
@@ -525,7 +539,21 @@
                 copyright: '© 2026 Antigravity Labs. Freelance Value Optimizer v1.0',
                 resultRate: '{rate}',
                 resultAnnual: '세전 목표 매출: {amount}',
-                resultNet: '세후 실수령: {amount}'
+                resultNet: '세후 실수령: {amount}',
+                guideTitle: '2026 프리랜서 성공을 위한 경제 가이드',
+                guideArt1: '1. 2026년 인플레이션과 프리랜서',
+                guideArt2: '2. 가치 기반 가격 책정 (Value-based Pricing)',
+                guideArt3: '3. 세금 및 자산 관리',
+                guideArt1P: '2026년은 생활비와 사업 운영비가 동시에 오르는 구간입니다. 프리랜서는 고정 급여가 없기 때문에 인플레이션이 곧바로 실질 소득의 하락으로 이어집니다. 프로젝트 단가가 정체된 상태에서 비용이 상승하면 순이익은 얇아집니다.',
+                guideTipLabel: '💡 실무 팁',
+                guideTipP: '분기 단위로 자신의 "생존 단가"를 재산정하고, 장기 계약 시 물가 조정 조건을 포함하세요.',
+                guideArt2P: '시간당 요율이 아니라 고객이 얻는 결과를 기준으로 가격을 정하세요. "랜딩페이지 제작" 대신 "전환율 20% 개선 솔루션"으로 제안해야 합니다. 최소·표준·프리미엄의 3단 패키지를 구성하여 고객이 \'비용\'이 아닌 \'가치\'를 비교하게 만드세요.',
+                guideArt3P: '소득 변동성이 큰 프리랜서에게 세금은 비용이 아니라 리스크입니다. 예상 세액 계좌를 만들어 수입의 20-30%를 미리 분리하세요. 단순 저축을 넘어, 자신의 전문성을 템플릿이나 교육으로 제품화하여 수익 파이프라인을 다각화하는 것이 최고의 자산 관리입니다.',
+                guideLinkText: '전체 가이드 읽기',
+                proTipLabel: 'PRO TIP',
+                proTipTitle: '내 시간의 가치는 얼마인가요?',
+                proTipP: '지금 바로 계산기로 확인해보세요.',
+                proTipBtn: '위로 이동하여 계산하기'
             },
             'en': {
                 title: 'Freelance Value Optimizer',
@@ -541,7 +569,7 @@
                 annualWorkHours: 'Annual Work Hours',
                 inflationRate: 'Inflation Adjustment',
                 calculateBtn: 'CALCULATE MY VALUE',
-                disclaimer: 'Input is in KRW. Toggle currency to change display.',
+                disclaimer: 'Enter values in the currency of the selected country. FX rate is used for tax calculation and USD conversion.',
                 dashboardTitle: 'After-Tax Income Dashboard',
                 themeLabel: 'MIDNIGHT NEBULA',
                 themeLabelLight: 'WINTER AERO',
@@ -566,7 +594,21 @@
                 copyright: '© 2026 Antigravity Labs. Freelance Value Optimizer v1.0',
                 resultRate: '{rate}',
                 resultAnnual: 'Target Revenue: {amount}',
-                resultNet: 'Net Income: {amount}'
+                resultNet: 'Net Income: {amount}',
+                guideTitle: '2026 Economic Guide for Freelancer Success',
+                guideArt1: '1. 2026 Inflation and Freelancers',
+                guideArt2: '2. Value-based Pricing',
+                guideArt3: '3. Tax and Asset Management',
+                guideArt1P: '2026 is a period where living and operating costs rise simultaneously. Since freelancers don\'t have a fixed salary, inflation immediately leads to a decline in real income. If project rates remain stagnant while costs rise, net profit thins.',
+                guideTipLabel: '💡 Practical Tip',
+                guideTipP: 'Recalculate your "survival rate" on a quarterly basis and include price adjustment clauses in long-term contracts.',
+                guideArt2P: 'Set prices based on the results the customer gets, not hourly rates. Propose "Solution to improve conversion rate by 20%" instead of "Landing page creation". Create a 3-tier package (Minimum, Standard, Premium) so customers compare "value" instead of "cost".',
+                guideArt3P: 'For freelancers with high income volatility, tax is a risk, not just a cost. Create an "expected tax account" and set aside 20-30% of your income in advance. Diversify your income pipelines by productizing your expertise into templates or education.',
+                guideLinkText: 'Read Full Guide',
+                proTipLabel: 'PRO TIP',
+                proTipTitle: 'What is the value of my time?',
+                proTipP: 'Check with the calculator right now.',
+                proTipBtn: 'Scroll up to calculate'
             },
             'zh-CN': {
                 title: 'Freelance Value Optimizer',
@@ -582,7 +624,7 @@
                 annualWorkHours: '年度工作时间',
                 inflationRate: '通胀调整',
                 calculateBtn: '计算我的价值',
-                disclaimer: '输入以韩元为准。切换货币以更改显示。',
+                disclaimer: '以此选择国家的货币为准输入。汇率用于税金计算及美元换算。',
                 dashboardTitle: '税后收入仪表板',
                 themeLabel: '午夜星云',
                 themeLabelLight: '冬季航空',
@@ -607,7 +649,21 @@
                 copyright: '© 2026 Antigravity Labs. Freelance Value Optimizer v1.0',
                 resultRate: '{rate}',
                 resultAnnual: '目标收入: {amount}',
-                resultNet: '净收入: {amount}'
+                resultNet: '净收入: {amount}',
+                guideTitle: '2026年自由职业者成功经济指南',
+                guideArt1: '1. 2026年通货膨胀与自由职业者',
+                guideArt2: '2. 基于价值的定价',
+                guideArt3: '3. 税务与资产管理',
+                guideArt1P: '1. 2026年通货膨胀与自由职业者...',
+                guideTipLabel: '💡 实用技巧',
+                guideTipP: '分季度重新计算您的“生存价格”,并在长期合同中加入价格调整条款。',
+                guideArt2P: '2. 基於價值的定價...',
+                guideArt3P: '3. 稅務與資產管理...',
+                guideLinkText: '阅读全文',
+                proTipLabel: 'PRO TIP',
+                proTipTitle: '我的时间价值是多少？',
+                proTipP: '立即用计算器核实。',
+                proTipBtn: '向上移动进行计算'
             },
             'zh-TW': {
                 title: 'Freelance Value Optimizer',
@@ -623,7 +679,7 @@
                 annualWorkHours: '年度工作時間',
                 inflationRate: '通膨調整',
                 calculateBtn: '計算我的價值',
-                disclaimer: '輸入以韓元為準。切換貨幣以更改顯示。',
+                disclaimer: '以所選國家的貨幣為準輸入。匯率用於稅金計算及美元換算。',
                 dashboardTitle: '稅後收入儀表板',
                 themeLabel: '午夜星雲',
                 themeLabelLight: '冬季航空',
@@ -648,7 +704,21 @@
                 copyright: '© 2026 Antigravity Labs. Freelance Value Optimizer v1.0',
                 resultRate: '{rate}',
                 resultAnnual: '目標收入: {amount}',
-                resultNet: '淨收入: {amount}'
+                resultNet: '淨收入: {amount}',
+                guideTitle: '2026年自由職業者成功經濟指南',
+                guideArt1: '1. 2026年通貨膨脹與自由職業者',
+                guideArt2: '2. 基於價值的定價',
+                guideArt3: '3. 稅務與資產管理',
+                guideArt1P: '1. 2026年通貨膨脹與自由職業者...',
+                guideTipLabel: '💡 實用技巧',
+                guideTipP: '分季度重新計算您的「生存價格」，並在長期合同中加入價格調整條款。',
+                guideArt2P: '2. 基於價值的定價...',
+                guideArt3P: '3. 稅務與資產管理...',
+                guideLinkText: '閱讀全文',
+                proTipLabel: 'PRO TIP',
+                proTipTitle: '我的時間價值是多少？',
+                proTipP: '立即用計算器核實。',
+                proTipBtn: '向上移動進行計算'
             },
             'ja': {
                 title: 'Freelance Value Optimizer',
@@ -664,7 +734,7 @@
                 annualWorkHours: '年間労働時間',
                 inflationRate: 'インフレ調整',
                 calculateBtn: '私の価値を計算',
-                disclaimer: '入力は韓国ウォン基準です。通貨切替で表示を変更できます。',
+                disclaimer: '選択した国の通貨基準で入力してください。為替レートは税金計算およびドル換算に使用されます。',
                 dashboardTitle: '税引後収入ダッシュボード',
                 themeLabel: 'ミッドナイトネビュラ',
                 themeLabelLight: 'ウィンターエアロ',
@@ -689,7 +759,21 @@
                 copyright: '© 2026 Antigravity Labs. Freelance Value Optimizer v1.0',
                 resultRate: '{rate}',
                 resultAnnual: '目標収入: {amount}',
-                resultNet: '純収入: {amount}'
+                resultNet: '純収入: {amount}',
+                guideTitle: '2026年フリーランス成功のための経済ガイド',
+                guideArt1: '1. 2026年のインフレとフリーランス',
+                guideArt2: '2. 価値ベースの値決め',
+                guideArt3: '3. 税金と資産管理',
+                guideArt1P: '2026年は生活費と事業運営費が同時に上昇する時期です...',
+                guideTipLabel: '💡 実務チップ',
+                guideTipP: '四半期単位で自分の「生存単価」を再計算し、長期契約時に物価調整条件を含めてください。',
+                guideArt2P: '時間給ではなく、顧客が得る結果に基づいて価格を決定してください...',
+                guideArt3P: '所得変動が大きいフリーランスにとって、税金は費用ではなくリスクです...',
+                guideLinkText: 'ガイドを読む',
+                proTipLabel: 'PRO TIP',
+                proTipTitle: '私の時間の価値はいくらですか？',
+                proTipP: '今すぐ計算機で確認してください。',
+                proTipBtn: '上に移動して計算する'
             }
         };
 
@@ -715,26 +799,61 @@
             document.querySelector('header h1 span').textContent = t('title');
             document.querySelector('header p').innerHTML = t('subtitle');
             
-            // Mode Label
-            if (isSimpleMode) {
-                modeLabel.innerText = t('modeSimple');
-            } else {
-                modeLabel.innerText = t('modeDetail');
-            }
+            // Labels
+            const labels = {
+                'mode-toggle': isSimpleMode ? t('modeSimple') : t('modeDetail'),
+                'currency-label-text': t('currencyLabel'),
+                'calculate-btn': t('calculateBtn'),
+                'dashboard-title-text': t('dashboardTitle'),
+                'chart-title-text': t('chartTitle'),
+                'metric-tax-label': t('taxPaid'),
+                'metric-withheld-label': t('withheld'),
+                'metric-hourly-net-label': t('netHourly'),
+                'metric-savings-label': t('savings'),
+                'ratio-tax-label': t('tax'),
+                'ratio-savings-label': t('savingsChart'),
+                'ratio-spendable-label': t('spendable'),
+                'chart-note-text': t('chartNote'),
+                'disclaimer-text': t('disclaimer'),
+                'guide-art-1-title': t('guideArt1'),
+                'guide-art-2-title': t('guideArt2'),
+                'guide-art-3-title': t('guideArt3'),
+                'guide-art-1-p': t('guideArt1P'),
+                'guide-art-2-p': t('guideArt2P'),
+                'guide-art-3-p': t('guideArt3P'),
+                'guide-tip-label': t('guideTipLabel'),
+                'guide-tip-p': t('guideTipP'),
+                'guide-link-text': t('guideLinkText'),
+                'pro-tip-label': t('proTipLabel'),
+                'pro-tip-title': t('proTipTitle'),
+                'pro-tip-p': t('proTipP'),
+                'pro-tip-btn': t('proTipBtn')
+            };
 
-            // Currency Label
-            if (document.getElementById('currency-label-text')) {
-                document.getElementById('currency-label-text').innerText = t('currencyLabel');
-            }
+            Object.keys(labels).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.innerText = labels[id];
+            });
 
-            // Input Labels
-            document.querySelector('label[for="salary"]')?.previousElementSibling && (document.querySelector('label[for="salary"]').innerText = t('targetSalary'));
+            // Specific labels that might be within other tags
+            const salaryLabel = document.querySelector('label[for="salary"]');
+            if (salaryLabel) salaryLabel.innerText = t('targetSalary');
             
-            // Disclaimer
-            const system = taxSystems[currentCountry];
-            if (system && document.getElementById('disclaimer-text')) {
-                document.getElementById('disclaimer-text').innerText = t('disclaimer');
-            }
+            const fxLabel = document.querySelector('label[for="fx-rate"]');
+            if (fxLabel) fxLabel.innerText = `${taxSystems[currentCountry].currency}/USD ${t('annualFxRate')}`;
+            
+            const hoursLabel = document.querySelector('label[for="hours"]');
+            if (hoursLabel) hoursLabel.innerText = t('annualWorkHours');
+
+            const savingsLabel = document.querySelector('label[for="savings"]');
+            if (savingsLabel) savingsLabel.innerText = t('monthlySavings');
+
+            const expensesLabel = document.querySelector('label[for="expenses"]');
+            if (expensesLabel) expensesLabel.innerText = t('annualExpenses');
+
+            // Guide Section (Partial)
+            const guideTitle = document.querySelector('.mt-12 h2');
+            if (guideTitle) guideTitle.innerHTML = `<span class="text-sky-500">📚</span> ${t('guideTitle') || 'Guide'}`;
 
             // Results Labels (if result is already rendered)
             if (lastResult) renderResult(lastResult);
@@ -1072,11 +1191,14 @@
                 // Update disclaimer text
                 document.getElementById('disclaimer-text').innerText = `${system.name} (${system.currency}) 기준으로 입력하세요.`;
 
-                // Update toggle context
-                if (state.displayMode === 'local') {
-                    currencyLabel.innerText = system.currency;
-                } else {
-                    currencyLabel.innerText = 'USD';
+                // Update toggle context - Auto Sync to Local
+                state.displayMode = 'local';
+                const toggle = document.getElementById('currency-toggle');
+                if(toggle) toggle.checked = false;
+                
+                const cl = document.getElementById('currency-label');
+                if (cl) {
+                    cl.innerText = system.currency;
                 }
 
                 // Update Placeholders
@@ -1087,9 +1209,9 @@
                 }
             }
             
-            if (lastResult) {
-                calculate();
-            }
+            // Reset to input view when changing country
+            lastResult = null;
+            reset();
         }
 
         function calcIncomeTax(taxableIncome) {
@@ -1249,6 +1371,31 @@
         function reset() {
             document.getElementById('result-view').classList.add('hidden');
             document.getElementById('input-container').classList.remove('hidden');
+
+            // Clear dashboard values to prevent stale data
+            const ids = ['metric-tax', 'metric-withheld', 'metric-hourly-net', 'metric-savings', 'result-rate'];
+            ids.forEach(id => {
+               const el = document.getElementById(id);
+               if(el) el.innerText = '0';
+            });
+            
+            const txtIds = ['metric-tax-detail', 'metric-gap', 'metric-hourly-gross', 'metric-savings-share'];
+            txtIds.forEach(id => {
+               const el = document.getElementById(id);
+               if(el) el.innerText = '...';
+            });
+            
+            const pctIds = ['ratio-tax', 'ratio-savings', 'ratio-spendable'];
+            pctIds.forEach(id => {
+               const el = document.getElementById(id);
+               if(el) el.innerText = '0%';
+            });
+
+             // Clear chart
+            if (ratioChart) {
+                ratioChart.destroy();
+                ratioChart = null;
+            }
         }
 
         async function saveImage() {
@@ -1324,7 +1471,7 @@
 
             if (currency === 'USD') {
                 currencyToggle.checked = true;
-                state.currency = 'USD';
+                state.displayMode = 'usd';
                 currencyLabel.innerText = 'USD';
             }
             if (fx) {
@@ -1336,6 +1483,9 @@
                 calculate();
             }
         }
+        
+        // Initialize UI with saved country or default
+        setCountry(currentCountry);
 
         applyParams();
         
