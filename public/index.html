@@ -40,7 +40,7 @@
         // --- Theme Initialization (Blocking Script to Prevent Flash) ---
         (function() {
             try {
-                const savedTheme = localStorage.getItem('theme-preference');
+                const savedTheme = localStorage.getItem('fvo-theme-v2');
                 const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                 
                 // If no preference is saved, default to 'system' behavior
@@ -54,7 +54,7 @@
                     // savedTheme is null or 'system' -> follow system
                     themeToApply = systemDark ? 'dark' : 'light';
                     // Ensure 'system' is explicitly stored if nothing was set, for consistency
-                    if (!savedTheme) localStorage.setItem('theme-preference', 'system');
+                    if (!savedTheme) localStorage.setItem('fvo-theme-v2', 'system');
                 }
 
                 if (themeToApply === 'dark') {
@@ -960,7 +960,7 @@
                 html.classList.remove('dark');
             }
             
-            localStorage.setItem('theme-preference', theme);
+            localStorage.setItem('fvo-theme-v2', theme);
             
             // Update Dashboard Sub-label
             const subLabel = document.getElementById('theme-sub-label');
@@ -972,7 +972,7 @@
         }
 
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (localStorage.getItem('theme-preference') === 'system') {
+            if (localStorage.getItem('fvo-theme-v2') === 'system') {
                 applyTheme('system');
             }
         });
@@ -983,7 +983,7 @@
 
         // Initialize theme - check immediately on load
         const initTheme = () => {
-            const savedTheme = localStorage.getItem('theme-preference') || 'system';
+            const savedTheme = localStorage.getItem('fvo-theme-v2') || 'system';
             console.log('Initializing theme:', savedTheme);
             console.log('Browser prefers dark:', window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
             applyTheme(savedTheme);
