@@ -1490,12 +1490,16 @@
         applyParams();
 
         // --- Consent Management Platform (CMP) Banner ---
-        (function() {
-            const consentKey = 'fvo-consent-v1';
+        // --- Consent Management Platform (CMP) Banner ---
+        // --- Consent Management Platform (CMP) Banner ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const consentKey = 'fvo-notice-v3'; 
+            
             if (!localStorage.getItem(consentKey)) {
+                // Create Banner
                 const banner = document.createElement('div');
-                banner.id = 'consent-banner';
-                banner.className = 'fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md border-t border-white/10 p-6 z-[200] transform transition-transform duration-500';
+                banner.id = 'fvo-notice-panel'; 
+                banner.className = 'fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md border-t border-white/10 p-6 z-[9999] transform transition-transform duration-500';
                 banner.innerHTML = `
                     <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
                         <div class="text-sm text-slate-300">
@@ -1508,10 +1512,10 @@
                             </p>
                         </div>
                         <div class="flex gap-3">
-                            <button id="consent-settings" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-colors">
+                            <button id="fvo-notice-settings" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-colors">
                                 설정
                             </button>
-                            <button id="consent-accept" class="px-6 py-2 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold rounded-lg transition-colors shadow-lg shadow-sky-500/20">
+                            <button id="fvo-notice-ack" class="px-6 py-2 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold rounded-lg transition-colors shadow-lg shadow-sky-500/20">
                                 동의 및 계속
                             </button>
                         </div>
@@ -1519,17 +1523,31 @@
                 `;
                 document.body.appendChild(banner);
 
-                document.getElementById('consent-accept').addEventListener('click', () => {
+                // Adjust Chatbot Button Position
+                const chatbotBtn = document.getElementById('ai-chatbot-btn');
+                if (chatbotBtn) {
+                    chatbotBtn.style.transition = 'bottom 0.5s ease';
+                    chatbotBtn.style.bottom = '180px'; // Move up to avoid banner
+                }
+
+                // Handle Acceptance
+                document.getElementById('fvo-notice-ack').addEventListener('click', () => {
                     localStorage.setItem(consentKey, 'true');
                     banner.classList.add('translate-y-full');
+                    
+                    // Restore Chatbot Button Position
+                    if (chatbotBtn) {
+                        chatbotBtn.style.bottom = ''; // Revert to CSS default (bottom-8)
+                    }
+                    
                     setTimeout(() => banner.remove(), 500);
                 });
                 
-                 document.getElementById('consent-settings').addEventListener('click', () => {
+                 document.getElementById('fvo-notice-settings').addEventListener('click', () => {
                     alert('현재 버전에서는 기본 쿠키만 사용됩니다.');
                 });
             }
-        })();
+        });
         
         // === AI Chatbot Functions ===
         // The API key is now securely stored in Cloudflare Pages environment variables!
