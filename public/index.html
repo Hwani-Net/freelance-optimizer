@@ -43,15 +43,18 @@
                 const savedTheme = localStorage.getItem('theme-preference');
                 const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                 
-                let themeToApply = 'light'; // Default fallback
+                // If no preference is saved, default to 'system' behavior
+                let themeToApply = 'light'; 
                 
                 if (savedTheme === 'dark') {
                     themeToApply = 'dark';
                 } else if (savedTheme === 'light') {
                     themeToApply = 'light';
                 } else {
-                    // System or not set
+                    // savedTheme is null or 'system' -> follow system
                     themeToApply = systemDark ? 'dark' : 'light';
+                    // Ensure 'system' is explicitly stored if nothing was set, for consistency
+                    if (!savedTheme) localStorage.setItem('theme-preference', 'system');
                 }
 
                 if (themeToApply === 'dark') {
