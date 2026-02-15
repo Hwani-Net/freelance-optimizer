@@ -12,12 +12,44 @@
             --accent-s: 95%;
             --accent-l: 62%;
             --accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+            --accent-strong: hsl(198 100% 48%);
+            --accent-soft: hsl(200 90% 70% / 0.15);
+            --bg-deep: #f5f7fa;
+            --bg-panel: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(0, 0, 0, 0.08);
+            --text-main: #1a202c;
+            --text-dim: #4a5568;
+            --text-body: #374151;
+            --note-bg: hsl(200 60% 96%);
+            --note-border: var(--accent-strong);
+            --note-text: #2d3748;
+            --chip-bg: hsl(220 30% 96%);
+            --chip-border: rgba(100, 116, 139, 0.2);
+            --chip-text: #64748b;
+            --footer-text: #94a3b8;
+            --bg-image: none;
+        }
+        [data-theme='dark'] {
             --accent-strong: hsl(198 100% 68%);
             --accent-soft: hsl(200 90% 70% / 0.25);
             --bg-deep: #070b16;
             --bg-panel: hsl(222 48% 14% / 0.82);
             --glass-border: rgba(255, 255, 255, 0.12);
+            --text-main: #f8fafc;
             --text-dim: #a2b2c6;
+            --text-body: #d2d9e6;
+            --note-bg: transparent;
+            --note-border: var(--accent-strong);
+            --note-text: #b6c4d8;
+            --chip-bg: hsl(220 35% 16% / 0.8);
+            --chip-border: rgba(148, 163, 184, 0.25);
+            --chip-text: #9fb3c8;
+            --footer-text: #7d8aa0;
+            --bg-image:
+                radial-gradient(circle at 8% 20%, hsl(196 100% 60% / 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 85% 15%, hsl(270 90% 70% / 0.18) 0%, transparent 38%),
+                radial-gradient(circle at 50% 80%, hsl(220 90% 55% / 0.16) 0%, transparent 40%),
+                linear-gradient(180deg, #060910 0%, #0c1224 55%, #0a0f1d 100%);
         }
         * {
             box-sizing: border-box;
@@ -26,19 +58,19 @@
             margin: 0;
             font-family: 'Pretendard', sans-serif;
             background-color: var(--bg-deep);
-            color: #f8fafc;
+            color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
-            background-image:
-                radial-gradient(circle at 8% 20%, hsl(196 100% 60% / 0.2) 0%, transparent 35%),
-                radial-gradient(circle at 85% 15%, hsl(270 90% 70% / 0.18) 0%, transparent 38%),
-                radial-gradient(circle at 50% 80%, hsl(220 90% 55% / 0.16) 0%, transparent 40%),
-                linear-gradient(180deg, #060910 0%, #0c1224 55%, #0a0f1d 100%);
+            background-image: var(--bg-image);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .font-display {
             font-family: 'Space Grotesk', sans-serif;
         }
         .neon-text {
+            text-shadow: none;
+        }
+        [data-theme='dark'] .neon-text {
             text-shadow:
                 0 0 12px hsl(var(--accent-h) var(--accent-s) 60% / 0.45),
                 0 0 28px hsl(var(--accent-h) var(--accent-s) 60% / 0.25);
@@ -48,11 +80,14 @@
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
             border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.08);
+        }
+        [data-theme='dark'] .glass-panel {
             box-shadow: 0 18px 45px -18px rgba(0, 0, 0, 0.6), 0 0 28px hsl(200 100% 60% / 0.08);
         }
         .chip {
-            background: hsl(220 35% 16% / 0.8);
-            border: 1px solid rgba(148, 163, 184, 0.25);
+            background: var(--chip-bg);
+            border: 1px solid var(--chip-border);
         }
         .btn-primary {
             background: linear-gradient(135deg, hsl(198 100% 60%), hsl(220 90% 58%));
@@ -101,7 +136,7 @@
             margin-bottom: 20px;
         }
         .section p {
-            color: #d2d9e6;
+            color: var(--text-body);
             line-height: 1.75;
             margin: 0 0 14px;
         }
@@ -109,14 +144,17 @@
             margin-bottom: 0;
         }
         .highlight {
-            color: #e2f2ff;
+            color: var(--accent-strong);
             font-weight: 600;
         }
         .note {
-            border-left: 3px solid var(--accent-strong);
+            border-left: 3px solid var(--note-border);
             padding-left: 12px;
-            color: #b6c4d8;
+            color: var(--note-text);
             margin: 16px 0 0;
+            background: var(--note-bg);
+            padding: 12px 12px 12px 16px;
+            border-radius: 0 8px 8px 0;
         }
         .cta-row {
             display: flex;
@@ -127,7 +165,7 @@
         }
         footer {
             text-align: center;
-            color: #7d8aa0;
+            color: var(--footer-text);
             font-size: 0.8rem;
             margin-top: 28px;
         }
@@ -142,7 +180,7 @@
     <div class="container">
         <div class="cta-row">
             <a class="btn-primary" href="index.html">홈으로</a>
-            <div class="chip" style="padding: 8px 16px; border-radius: 999px; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: #9fb3c8;">
+            <div class="chip" style="padding: 8px 16px; border-radius: 999px; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--chip-text);">
                 Freelance Value Optimizer Guide
             </div>
         </div>
@@ -211,5 +249,12 @@
             © 2026 Antigravity Labs. Freelance Value Optimizer Series.
         </footer>
     </div>
+
+    <script>
+        const theme = localStorage.getItem('theme-preference') || 'system';
+        if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </body>
 </html>
