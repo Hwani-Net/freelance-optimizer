@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /css/
 
 Sitemap: https://freelance-optimizer-clean-modern.pages.dev/sitemap.xml
