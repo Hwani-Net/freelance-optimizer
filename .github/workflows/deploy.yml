@@ -20,4 +20,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 555d83100b885b07638ac51d48c6beec
+          wranglerVersion: "4.65.0"
           command: pages deploy ./public --project-name=freelance-optimizer-clean-modern --branch=main
